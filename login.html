@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title data-i18n="loginTitle">Login</title>
+    <link href="main.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .login-wrap {
+            max-width: 520px;
+            margin: 120px auto 60px;
+            padding: 32px 28px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        }
+        .login-wrap label { display:block; margin: 10px 0 6px; }
+        .login-wrap input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .login-actions {
+            display:flex; gap:10px; justify-content:flex-end; margin-top:16px;
+        }
+        .error {
+            display:none; color:#b00020; margin-top:10px; font-weight:600;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <div class="branding d-flex align-items-center">
+        <div class="container position-relative d-flex align-items-left">
+            <a href="main.html" class="logo d-flex align-items-left me-3">
+                <img src="img/cropped-logo.png" alt="Logo" />
+            </a>
+            <nav id="navmenu" class="navmenu flex-grow-1 text-center">
+                <ul class="d-inline-flex list-unstyled mb-0">
+                    <il><a href="main.html#research" class="" data-i18n="research"></a></il>
+                    <il><a href="main.html#games" class="" data-i18n="games"></a></il>
+                    <il><a href="https://www.ku.edu.tr/" class="" data-i18n="home"></a></il>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+            <div id="lang-switcher">
+                <button class="lang-btn" data-lang="es">ES</button>
+                <span class="separator">|</span>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <span class="separator">|</span>
+                <button class="lang-btn active" data-lang="tr">TR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="main">
+    <section class="login-wrap">
+        <h2 data-i18n="loginTitle"></h2>
+
+        <form id="loginForm" novalidate>
+            <label for="username" data-i18n="username"></label>
+            <input id="username" type="text" autocomplete="username" required
+                   data-i18n-placeholder="usernamePh"/>
+
+            <label for="password" data-i18n="password"></label>
+            <input id="password" type="password" autocomplete="current-password" required
+                   data-i18n-placeholder="passwordPh"/>
+
+            <div class="login-actions">
+                <button type="submit" class="btn" data-i18n="loginButton"></button>
+            </div>
+
+            <p id="error" class="error" data-i18n="loginError"></p>
+        </form>
+    </section>
+</main>
+
+<script src="main.js"></script>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('target') || 'uno'; // por defecto UNO
+
+    // Si ya está logueado, ir directo
+    if (localStorage.getItem('loggedIn') === 'true') {
+        window.location.replace(target + '.html');
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value;
+
+        if (user === 'admin' && pass === '1234') {
+            localStorage.setItem('loggedIn', 'true');
+            window.location.href = target + '.html';
+        } else {
+            document.getElementById('error').style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>

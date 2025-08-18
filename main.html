@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>KOÇ</title>
+    <link  href="main.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="branding d-flex align-items-center">
+            <div class="container position-relative d-flex align-items-left">
+                <a href="main.html" class="logo d-flex align-items-left me-3">
+                    <img  src="img/cropped-logo.png" alt="Logo">
+                </a>
+                <nav id="navmenu" class="navmenu flex-grow-1 text-center ">
+                    <ul class="d-inline-flex list-unstyled mb-0">
+                        <il><a href="#research" class="" data-i18n="research"></a></il>
+                        <il><a href="#games" class="" data-i18n="games"></a></il>
+                        <il><a href="https://www.ku.edu.tr/" class="" data-i18n="home"></a></il>
+
+                    </ul>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
+                <div id="lang-switcher">
+                    <button class="lang-btn" data-lang="es">ES</button>
+                    <span class="separator">|</span>
+                    <button class="lang-btn"       data-lang="en">EN</button>
+                    <span class="separator">|</span>
+                    <button class="lang-btn active"       data-lang="tr">TR</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="cookie-banner" class="cookie-banner">
+        <button id="cookie-close" class="cookie-close" aria-label="Cerrar aviso">&times;</button>
+        <h2 data-i18n="title"></h2>
+        <p data-i18n="desc"></p>
+        <div class="cookie-buttons">
+            <button id="accept-all" class="btn btn-primary" data-i18n="btnAccept"></button>
+            <button id="reject-all" class="btn btn-secondary" data-i18n="btnReject"></button>
+            <button id="customize"  class="btn btn-outline" data-i18n="btnCustom"></button>
+        </div>
+    </div>
+    <main class="main">
+        <section id="research" class="research">
+            <div class="research-title" data-aos="fade-up">
+                <h2 data-i18n="researchTitle"> </h2>
+            </div>
+            <div class="container">
+                <h3></h3>
+            </div>
+        </section>
+
+
+        <section id="games" class="games">
+            <div class="game-title" data-aos="fade-up">
+                <h2 data-i18n="gameTitleSection"></h2>
+            </div>
+            <div class="container">
+                <h3 data-i18n="firstgame"></h3>
+                <div class="game" data-aos="fade-up" data-aos-delay="100">
+                    <h4 data-i18n="gameTitle"></h4>
+                    <a href="login.html?target=uno" class="active" alt="" data-i18n="play">▶</a>
+                </div>
+
+            </div>
+
+            <div class="container">
+                <h3 data-i18n="secondgame"></h3>
+                <div class="game" data-aos="fade-up" data-aos-delay="100">
+                    <h4 >Knowledge: </h4>
+                    <a href="login.html?target=knowledge" class="active" alt="" data-i18n="play">▶</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <script src="main.js"></script>
+
+</body>
+</html>

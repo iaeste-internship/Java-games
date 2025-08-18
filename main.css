@@ -1,0 +1,355 @@
+:root {
+    --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --heading-font: "Raleway",  sans-serif;
+    --nav-font: "Poppins",  sans-serif;
+}
+:root {
+    --background-color: white; /* Background color for the entire website, including individual sections */
+    --default-color: black ; /* Default color used for the majority of the text content across the entire website */
+    --heading-color: red; /* Color for headings, subheadings and title throughout the website */
+    --accent-color: black; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+    --surface-color: white; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+    --contrast-color: purple; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+/---header----/
+.header {
+    color: black;
+    background-color: var(--contrast-color );
+    transition: all 0.5s;
+    z-index: 997;
+    box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+}
+.header .branding {
+    min-height: 60px;
+    padding: 10px 0;
+}
+.header .logo {
+    max-height: 10%;
+    max-width: 10%;
+    margin-right: 2rem;
+    padding: 0.5rem;
+}
+.header.logo img{
+    height: 60px;
+    width: auto;
+}
+.header .cta-btn:hover,
+.header .cta-btn:focus:hover {
+    color: var(--contrast-color);
+    background: color-mix(in srgb, var(--accent-color), transparent 15%);
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    color: var(--heading-color);
+    line-height: 1.2;
+    margin: 0 0 1rem;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/*---main-nav---*/
+
+.navmenu ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navmenu ul li a {
+    padding-top: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: var(--nav-font);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--heading-color);
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+    position: static;
+}
+
+.navmenu ul li a.active {
+    color: var(--default-color);
+    border-bottom: 2px solid var(--default-color);
+}
+
+.navmenu ul li a:not(.active):hover {
+    color: var(--contrast-color);
+}
+
+.main {
+    margin-top: 90px;
+}
+/* BODY GENERAL */
+body {
+    font-family: var(--default-font);
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* SECCIONES GENERALES */
+section {
+    padding: 80px 20px;
+    background: #fff;
+    max-width: 1200px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.active-title h2 {
+    font-family: var(--heading-font);
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: var(--default-color);
+    height: auto;
+    width: auto;
+}
+
+a:hover {
+    color: var(--contrast-color);
+}
+
+button, .btn {
+    background: var(--accent-color);
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background: #a82330;
+}
+/* SECCIONES ALTERNADAS */
+.main section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* Sección research (blanco) */
+section.research {
+    background: #fff;
+}
+
+/* Sección games (gris claro) */
+section.games {
+    background: #f2f2f2;
+}
+
+/* TITULOS DE SECCIONES */
+.research-title h2,
+.game-title h2 {
+    font-family: var(--heading-font);
+    font-size: 2.2rem;
+    color: #222;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* JUEGOS */
+.games .game {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.games .game h4 {
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.games .game a {
+    display: inline-block;
+    color: #fff;
+    background: var(--accent-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.games .game a:hover {
+    background: #a82330;
+}
+.description .game-description{
+    color:var(--default-color);
+    text-align: center;
+    margin-left: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+.description-box{
+    border: 1px solid var(--contrast-color);
+    border-radius: 10px;
+    padding: 10px;
+}
+.button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #8bc34a; /* Verde */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.button:hover{
+    background-color: var(--contrast-color);
+    color: white;
+}
+.play-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+/*--------------------------------------------------------------
+# Cookie Section
+--------------------------------------------------------------*/
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 20px 30px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    font-family: system-ui, sans-serif;
+    color: #333;
+    z-index: 9999;
+    max-width: 960px;
+    margin: 0 auto;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+}
+.cookie-banner.show {
+    transform: translateY(0);
+}
+.cookie-banner h2 {
+    margin-top: 0;
+    color: #900;
+    font-size: 1.5rem;
+}
+.cookie-banner p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 10px 0 20px;
+}
+.cookie-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.cookie-buttons .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-primary {
+    background: #900;
+    color: #fff;
+}
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+}
+.btn-outline {
+    background: transparent;
+    color: #333;
+    border: 2px solid #ccc;
+}
+.btn:hover {
+    opacity: 0.9;
+}
+.cookie-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #666;
+}
+/*Lenguage section*/
+#lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--background-color); /* tu morado */
+    border-radius: 20px;
+    padding: 4px 8px;
+}
+#lang-switcher .separator :hover {
+    background-color: var(--contrast-color);
+}
+#lang-switcher .lang-btn {
+    background: none;
+    border: none;
+    color: var(--contrast-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+#lang-switcher .lang-btn:hover {
+    background: var(--contrast-color);
+    color: var(--background-color);
+    border-radius: 16px;
+}
+
+
+#lang-switcher .separator {
+    color: var(--contrast-color);
+    margin: 0 4px;
+    user-select: none;
+}
+ 
