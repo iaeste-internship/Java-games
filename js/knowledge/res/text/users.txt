@@ -1,0 +1,3 @@
+Sinan,Efe123,male1.png,50;60;150;150;
+Ada,123Ada,female.png,empty
+demo,123Demo,male2.png,100;

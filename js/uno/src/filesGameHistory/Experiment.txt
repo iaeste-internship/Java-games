@@ -1,0 +1,70 @@
+--Game Session Begins--
+violetVagon plays WildColor. violetVagon has 6 cards left!
+violetVagon chooses color Green
+BOT Aykut plays GreenSkip. BOT Aykut has 6 cards left.
+BOT İrem's turn is skipped
+BOT Beyza draws.
+BOT Beyza plays GreenReverse. BOT Beyza has 7 cards left.
+Direction is reversed!
+BOT İrem plays Green3. BOT İrem has 6 cards left.
+BOT Aykut plays WildDraw4. BOT Aykut has 5 cards left.
+Selects color Yellow
+violetVagon draws Four
+violetVagon's turn is skipped
+BOT Erk plays Yellow4. BOT Erk has 6 cards left.
+BOT Elif plays WildColor. BOT Elif has 6 cards left.
+Selects color Green
+BOT Beyza draws.
+BOT Beyza draws.
+BOT Beyza draws.
+BOT Beyza plays Green3. BOT Beyza has 9 cards left.
+BOT İrem plays WildDraw4. BOT İrem has 5 cards left.
+Selects color Red
+BOT Aykut draws Four
+BOT Aykut's turn is skipped
+violetVagon plays RedDraw2. violetVagon has 9 cards left!
+BOT Erk draws Two
+BOT Erk's turn is skipped
+BOT Elif plays BlueDraw2. BOT Elif has 5 cards left.
+BOT Beyza draws Two
+BOT Beyza's turn is skipped
+BOT İrem plays WildColor. BOT İrem has 4 cards left.
+Selects color Yellow
+BOT Aykut plays YellowSkip. BOT Aykut has 8 cards left.
+violetVagon's turn is skipped
+BOT Erk plays Yellow8. BOT Erk has 7 cards left.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif plays YellowSkip. BOT Elif has 10 cards left.
+BOT Beyza's turn is skipped
+BOT İrem plays Yellow6. BOT İrem has 3 cards left.
+BOT Aykut plays YellowDraw2. BOT Aykut has 7 cards left.
+violetVagon draws Two
+violetVagon's turn is skipped
+BOT Erk plays WildColor. BOT Erk has 6 cards left.
+Selects color Blue
+BOT Elif plays Blue5. BOT Elif has 9 cards left.
+BOT Beyza plays Blue9. BOT Beyza has 10 cards left.
+BOT İrem plays Yellow9. BOT İrem has 2 cards left.
+BOT Aykut plays Yellow4. BOT Aykut has 6 cards left.
+violetVagon plays Yellow5. violetVagon has 10 cards left!
+BOT Erk draws.
+BOT Erk draws.
+BOT Erk plays Red5. BOT Erk has 7 cards left.
+BOT Elif plays RedReverse. BOT Elif has 8 cards left.
+Direction is reversed!
+BOT Erk plays Red6. BOT Erk has 6 cards left.
+violetVagon plays RedSkip. violetVagon has 9 cards left!
+BOT Aykut's turn is skipped
+BOT İrem plays Red1. BOT İrem has 1 cards left.
+BOT Beyza plays Yellow1. BOT Beyza has 9 cards left.
+BOT Elif plays Green1. BOT Elif has 7 cards left.
+BOT Erk plays Green8. BOT Erk has 5 cards left.
+violetVagon pointed out, BOT İrem forgot to say UNO!
+BOT İrem draws.
+BOT İrem draws.
+Saving the Game

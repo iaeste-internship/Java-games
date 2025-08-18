@@ -1,0 +1,379 @@
+--Game Session Begins--
+Saving the Game
+--Game Session Begins--
+TheBestSister plays Yellow5. TheBestSister has 6 cards left!
+BOT Aykut plays WildDraw4. BOT Aykut has 6 cards left.
+Selects color Blue
+BOT İrem draws Four
+BOT İrem's turn is skipped
+BOT Beyza plays Blue8. BOT Beyza has 6 cards left.
+BOT Elif plays WildDraw4. BOT Elif has 6 cards left.
+Selects color Red
+BOT Erk draws Four
+BOT Erk's turn is skipped
+BOT Gözde plays Red1. BOT Gözde has 6 cards left.
+BOT Emre plays RedDraw2. BOT Emre has 6 cards left.
+BOT Alara draws Two
+BOT Alara's turn is skipped
+BOT Ege plays Red7. BOT Ege has 6 cards left.
+TheBestSister plays Red9. TheBestSister has 5 cards left!
+BOT Aykut plays RedReverse. BOT Aykut has 5 cards left.
+Direction is reversed!
+TheBestSister plays Red4. TheBestSister has 4 cards left!
+BOT Ege plays Red9. BOT Ege has 5 cards left.
+BOT Alara plays RedSkip. BOT Alara has 8 cards left.
+BOT Emre's turn is skipped
+BOT Gözde plays Red4. BOT Gözde has 5 cards left.
+BOT Erk plays Red3. BOT Erk has 10 cards left.
+BOT Elif plays RedReverse. BOT Elif has 5 cards left.
+Direction is reversed!
+BOT Erk plays BlueReverse. BOT Erk has 9 cards left.
+Direction is reversed!
+BOT Elif plays BlueSkip. BOT Elif has 4 cards left.
+BOT Beyza's turn is skipped
+BOT İrem plays Blue7. BOT İrem has 10 cards left.
+BOT Aykut plays BlueDraw2. BOT Aykut has 4 cards left.
+TheBestSister draws Two
+TheBestSister's turn is skipped
+BOT Ege plays Blue3. BOT Ege has 4 cards left.
+BOT Alara plays Blue7. BOT Alara has 7 cards left.
+BOT Emre plays WildDraw4. BOT Emre has 5 cards left.
+Selects color Green
+BOT Gözde draws Four
+BOT Gözde's turn is skipped
+BOT Erk plays Green6. BOT Erk has 8 cards left.
+BOT Elif plays WildColor. BOT Elif has 3 cards left.
+Selects color Green
+BOT Beyza plays Green3. BOT Beyza has 5 cards left.
+BOT İrem plays Green9. BOT İrem has 9 cards left.
+BOT Aykut plays GreenReverse. BOT Aykut has 3 cards left.
+Direction is reversed!
+BOT İrem plays Green8. BOT İrem has 8 cards left.
+BOT Beyza plays Red8. BOT Beyza has 4 cards left.
+BOT Elif plays Blue8. BOT Elif has 2 cards left.
+BOT Erk plays Blue2. BOT Erk has 7 cards left.
+BOT Gözde plays Blue6. BOT Gözde has 8 cards left.
+BOT Emre plays BlueSkip. BOT Emre has 4 cards left.
+BOT Alara's turn is skipped
+BOT Ege plays Blue5. BOT Ege has 3 cards left.
+TheBestSister plays Blue6. TheBestSister has 5 cards left!
+BOT Aykut plays Yellow6. BOT Aykut has 2 cards left.
+BOT İrem plays YellowReverse. BOT İrem has 7 cards left.
+Direction is reversed!
+BOT Aykut draws.
+BOT Aykut draws.
+BOT Aykut plays BlueReverse. BOT Aykut has 3 cards left.
+Direction is reversed!
+BOT İrem plays Blue5. BOT İrem has 6 cards left.
+BOT Beyza plays Blue9. BOT Beyza has 3 cards left.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif plays BlueDraw2. BOT Elif has 7 cards left.
+BOT Erk draws Two
+BOT Erk's turn is skipped
+BOT Gözde plays Blue2. BOT Gözde has 7 cards left.
+BOT Emre plays Blue4. BOT Emre has 3 cards left.
+BOT Alara plays Green4. BOT Alara has 6 cards left.
+BOT Ege plays Green7. BOT Ege has 2 cards left.
+TheBestSister plays Green5. TheBestSister has 4 cards left!
+BOT Aykut draws.
+BOT Aykut draws.
+BOT Aykut draws.
+BOT Aykut plays GreenReverse. BOT Aykut has 5 cards left.
+Direction is reversed!
+TheBestSister plays WildColor. TheBestSister has 3 cards left!
+TheBestSister chooses color Yellow
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege plays WildColor. BOT Ege has 3 cards left.
+Selects color Green
+BOT Alara plays GreenSkip. BOT Alara has 5 cards left.
+BOT Emre's turn is skipped
+BOT Gözde plays YellowSkip. BOT Gözde has 6 cards left.
+BOT Erk's turn is skipped
+BOT Elif plays YellowDraw2. BOT Elif has 6 cards left.
+BOT Beyza draws Two
+BOT Beyza's turn is skipped
+BOT İrem plays Yellow7. BOT İrem has 5 cards left.
+BOT Aykut plays Yellow8. BOT Aykut has 4 cards left.
+TheBestSister plays Yellow9. TheBestSister has 2 cards left!
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege plays Green9. BOT Ege has 6 cards left.
+BOT Alara plays Green4. BOT Alara has 4 cards left.
+BOT Emre draws.
+BOT Emre draws.
+BOT Emre plays BlueDraw2. BOT Emre has 4 cards left.
+BOT Gözde draws Two
+BOT Gözde's turn is skipped
+BOT Erk draws.
+BOT Erk plays BlueSkip. BOT Erk has 9 cards left.
+BOT Elif's turn is skipped
+BOT Beyza plays Blue1. BOT Beyza has 4 cards left.
+BOT İrem plays Red1. BOT İrem has 4 cards left.
+BOT Aykut plays RedSkip. BOT Aykut has 3 cards left.
+TheBestSister's turn is skipped
+BOT Ege plays Red7. BOT Ege has 5 cards left.
+BOT Alara plays WildColor. BOT Alara has 3 cards left.
+Selects color Green
+BOT Emre plays Green9. BOT Emre has 3 cards left.
+BOT Gözde plays Green2. BOT Gözde has 7 cards left.
+BOT Erk plays Green1. BOT Erk has 8 cards left.
+BOT Elif plays GreenDraw2. BOT Elif has 5 cards left.
+BOT Beyza draws Two
+BOT Beyza's turn is skipped
+BOT İrem plays GreenDraw2. BOT İrem has 3 cards left.
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+TheBestSister draws.
+TheBestSister plays WildColor. TheBestSister has 2 cards left!
+TheBestSister chooses color Yellow
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege plays Yellow5. BOT Ege has 9 cards left.
+BOT Alara plays Yellow3. BOT Alara has 2 cards left.
+BOT Emre plays Yellow6. BOT Emre has 2 cards left.
+BOT Gözde plays YellowDraw2. BOT Gözde has 6 cards left.
+BOT Erk draws Two
+BOT Erk's turn is skipped
+BOT Elif plays Yellow8. BOT Elif has 4 cards left.
+BOT Beyza plays Yellow8. BOT Beyza has 5 cards left.
+BOT İrem plays Red8. BOT İrem has 2 cards left.
+BOT Aykut plays RedDraw2. BOT Aykut has 4 cards left.
+TheBestSister draws Two
+TheBestSister's turn is skipped
+BOT Ege plays Red6. BOT Ege has 8 cards left.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara plays WildColor. BOT Alara has 7 cards left.
+Selects color Yellow
+BOT Emre declares UNO!
+BOT Emre plays Yellow5. BOT Emre has 1 cards left.
+BOT Gözde plays Yellow7. BOT Gözde has 5 cards left.
+BOT Erk plays Yellow1. BOT Erk has 9 cards left.
+BOT Elif plays Yellow1. BOT Elif has 3 cards left.
+BOT Beyza plays Green1. BOT Beyza has 4 cards left.
+BOT İrem draws.
+BOT İrem plays Green3. BOT İrem has 2 cards left.
+BOT Aykut plays Blue3. BOT Aykut has 3 cards left.
+TheBestSister plays Blue0. TheBestSister has 3 cards left!
+BOT Ege plays Blue4. BOT Ege has 7 cards left.
+BOT Alara plays BlueDraw2. BOT Alara has 6 cards left.
+BOT Emre draws Two
+BOT Emre's turn is skipped
+BOT Gözde plays Blue1. BOT Gözde has 4 cards left.
+BOT Erk plays Red1. BOT Erk has 8 cards left.
+BOT Elif plays Red3. BOT Elif has 2 cards left.
+BOT Beyza plays Red3. BOT Beyza has 3 cards left.
+BOT İrem plays Red0. BOT İrem has 1 cards left.
+BOT Aykut draws.
+BOT Aykut draws.
+BOT Aykut plays Red7. BOT Aykut has 4 cards left.
+TheBestSister pointed out, BOT İrem forgot to say UNO!
+BOT İrem draws.
+BOT İrem draws.
+TheBestSister plays WildDraw4. TheBestSister has 2 cards left!
+TheBestSister chooses color Blue
+BOT Ege draws Four
+BOT Ege's turn is skipped
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara plays WildDraw4. BOT Alara has 7 cards left.
+Selects color Yellow
+BOT Emre draws Four
+BOT Emre's turn is skipped
+BOT Gözde plays Yellow4. BOT Gözde has 3 cards left.
+BOT Erk plays Yellow3. BOT Erk has 7 cards left.
+BOT Elif declares UNO!
+BOT Elif plays Green3. BOT Elif has 1 cards left.
+BOT Beyza plays Green7. BOT Beyza has 2 cards left.
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem plays Green5. BOT İrem has 6 cards left.
+BOT Aykut draws.
+BOT Aykut plays WildColor. BOT Aykut has 4 cards left.
+Selects color Green
+TheBestSister draws.
+TheBestSister plays Green8. TheBestSister has 2 cards left!
+BOT Ege plays Green6. BOT Ege has 10 cards left.
+BOT Alara plays Green0. BOT Alara has 6 cards left.
+BOT Emre plays WildDraw4. BOT Emre has 6 cards left.
+Selects color Yellow
+BOT Gözde draws Four
+BOT Gözde's turn is skipped
+BOT Erk plays Yellow9. BOT Erk has 6 cards left.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif plays YellowSkip. BOT Elif has 2 cards left.
+BOT Beyza's turn is skipped
+BOT İrem plays Yellow6. BOT İrem has 5 cards left.
+BOT Aykut draws.
+BOT Aykut draws.
+BOT Aykut plays Blue6. BOT Aykut has 5 cards left.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister plays WildDraw4. TheBestSister has 3 cards left!
+TheBestSister chooses color Green
+BOT Ege draws Four
+BOT Ege's turn is skipped
+BOT Alara plays GreenReverse. BOT Alara has 5 cards left.
+Direction is reversed!
+BOT Ege plays Green8. BOT Ege has 13 cards left.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister plays Blue8. TheBestSister has 5 cards left!
+BOT Aykut plays Blue9. BOT Aykut has 4 cards left.
+BOT İrem plays Red9. BOT İrem has 4 cards left.
+BOT Beyza plays WildDraw4. BOT Beyza has 1 cards left.
+Selects color Yellow
+BOT Elif draws Four
+BOT Elif's turn is skipped
+BOT Erk plays Yellow0. BOT Erk has 5 cards left.
+BOT Gözde draws.
+BOT Gözde plays WildColor. BOT Gözde has 7 cards left.
+Selects color Blue
+BOT Emre plays Blue3. BOT Emre has 5 cards left.
+BOT Alara draws.
+BOT Alara plays BlueDraw2. BOT Alara has 5 cards left.
+BOT Ege draws Two
+BOT Ege's turn is skipped
+TheBestSister pointed out, BOT Beyza forgot to say UNO!
+BOT Beyza draws.
+BOT Beyza draws.
+TheBestSister plays BlueDraw2. TheBestSister has 4 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+BOT İrem plays BlueReverse. BOT İrem has 3 cards left.
+Direction is reversed!
+BOT Aykut plays Blue4. BOT Aykut has 5 cards left.
+TheBestSister plays Red4. TheBestSister has 3 cards left!
+BOT Ege plays Green4. BOT Ege has 14 cards left.
+BOT Alara plays Green6. BOT Alara has 4 cards left.
+BOT Emre plays Red6. BOT Emre has 4 cards left.
+BOT Gözde plays Red8. BOT Gözde has 6 cards left.
+BOT Erk plays Red5. BOT Erk has 4 cards left.
+BOT Elif plays Red2. BOT Elif has 5 cards left.
+BOT Beyza plays Red1. BOT Beyza has 2 cards left.
+BOT İrem plays Red9. BOT İrem has 2 cards left.
+BOT Aykut plays Blue9. BOT Aykut has 4 cards left.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister draws.
+TheBestSister plays WildColor. TheBestSister has 10 cards left!
+TheBestSister chooses color Yellow
+BOT Ege plays Yellow9. BOT Ege has 13 cards left.
+BOT Alara plays YellowReverse. BOT Alara has 3 cards left.
+Direction is reversed!
+BOT Ege plays Yellow3. BOT Ege has 12 cards left.
+TheBestSister plays YellowDraw2. TheBestSister has 9 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem plays RedDraw2. BOT İrem has 4 cards left.
+BOT Beyza draws Two
+BOT Beyza's turn is skipped
+BOT Elif plays Red0. BOT Elif has 4 cards left.
+BOT Erk draws.
+BOT Erk plays Red7. BOT Erk has 4 cards left.
+BOT Gözde plays Red5. BOT Gözde has 5 cards left.
+BOT Emre plays RedReverse. BOT Emre has 3 cards left.
+Direction is reversed!
+BOT Gözde plays RedDraw2. BOT Gözde has 4 cards left.
+BOT Erk draws Two
+BOT Erk's turn is skipped
+BOT Elif draws.
+BOT Elif plays Red6. BOT Elif has 4 cards left.
+BOT Beyza plays Red3. BOT Beyza has 3 cards left.
+BOT İrem plays Red2. BOT İrem has 3 cards left.
+BOT Aykut plays WildDraw4. BOT Aykut has 5 cards left.
+Selects color Yellow
+TheBestSister draws Four
+TheBestSister's turn is skipped
+BOT Ege plays WildColor. BOT Ege has 11 cards left.
+Selects color Yellow
+BOT Alara plays YellowReverse. BOT Alara has 2 cards left.
+Direction is reversed!
+BOT Ege plays RedReverse. BOT Ege has 10 cards left.
+Direction is reversed!
+BOT Alara declares UNO!
+BOT Alara plays GreenReverse. BOT Alara has 1 cards left.
+Direction is reversed!
+BOT Ege plays Green9. BOT Ege has 9 cards left.
+TheBestSister plays GreenDraw2. TheBestSister has 12 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+BOT İrem plays Green7. BOT İrem has 2 cards left.
+BOT Beyza plays Green5. BOT Beyza has 2 cards left.
+BOT Elif draws.
+BOT Elif plays Green3. BOT Elif has 4 cards left.
+BOT Erk plays Green2. BOT Erk has 5 cards left.
+BOT Gözde plays Blue2. BOT Gözde has 3 cards left.
+BOT Emre draws.
+BOT Emre plays WildColor. BOT Emre has 3 cards left.
+Selects color Red
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara draws.
+BOT Alara plays Red1. BOT Alara has 5 cards left.
+BOT Ege plays Blue1. BOT Ege has 8 cards left.
+TheBestSister plays Yellow1. TheBestSister has 11 cards left!
+BOT Aykut plays Yellow8. BOT Aykut has 6 cards left.
+BOT İrem draws.
+BOT İrem plays WildDraw4. BOT İrem has 2 cards left.
+Selects color Blue
+BOT Beyza draws Four
+BOT Beyza's turn is skipped
+BOT Elif plays BlueSkip. BOT Elif has 3 cards left.
+BOT Erk's turn is skipped
+BOT Gözde plays Blue5. BOT Gözde has 2 cards left.
+BOT Emre draws.
+BOT Emre draws.
+BOT Emre draws.
+BOT Emre plays Blue3. BOT Emre has 5 cards left.
+BOT Alara plays Yellow3. BOT Alara has 4 cards left.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege draws.
+BOT Ege plays Green3. BOT Ege has 11 cards left.
+TheBestSister plays Green2. TheBestSister has 10 cards left!
+BOT Aykut plays Blue2. BOT Aykut has 5 cards left.
+BOT İrem plays BlueSkip. BOT İrem has 1 cards left.
+BOT Beyza's turn is skipped
+BOT Elif plays Blue6. BOT Elif has 2 cards left.
+BOT Erk plays Blue7. BOT Erk has 4 cards left.
+BOT Gözde declares UNO!
+BOT Gözde plays BlueReverse. BOT Gözde has 1 cards left.
+Direction is reversed!
+BOT Erk draws.
+BOT Erk plays Blue2. BOT Erk has 4 cards left.
+BOT Elif declares UNO!
+BOT Elif plays Blue6. BOT Elif has 1 cards left.
+BOT Beyza plays Blue3. BOT Beyza has 5 cards left.
+Game is finished! BOT İrem won the game.

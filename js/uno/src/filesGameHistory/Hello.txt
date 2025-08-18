@@ -1,0 +1,65 @@
+--Game Session Begins--
+decksdarkby plays YellowDraw2. decksdarkby has 6 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+BOT İrem plays WildDraw4. BOT İrem has 6 cards left.
+Selects color Yellow
+BOT Beyza draws Four
+BOT Beyza's turn is skipped
+BOT Elif plays Yellow4. BOT Elif has 6 cards left.
+BOT Erk plays Yellow6. BOT Erk has 6 cards left.
+BOT Gözde plays WildColor. BOT Gözde has 6 cards left.
+Selects color Yellow
+decksdarkby plays Yellow9. decksdarkby has 5 cards left!
+BOT Aykut plays YellowSkip. BOT Aykut has 8 cards left.
+BOT İrem's turn is skipped
+BOT Beyza plays Yellow5. BOT Beyza has 10 cards left.
+BOT Elif plays Yellow3. BOT Elif has 5 cards left.
+BOT Erk plays WildDraw4. BOT Erk has 5 cards left.
+Selects color Red
+BOT Gözde draws Four
+BOT Gözde's turn is skipped
+decksdarkby plays Red6. decksdarkby has 4 cards left!
+BOT Aykut plays Red8. BOT Aykut has 7 cards left.
+BOT İrem plays Blue8. BOT İrem has 5 cards left.
+BOT Beyza plays Blue3. BOT Beyza has 9 cards left.
+BOT Elif plays BlueReverse. BOT Elif has 4 cards left.
+Direction is reversed!
+BOT Beyza plays Blue1. BOT Beyza has 8 cards left.
+BOT İrem plays Blue2. BOT İrem has 4 cards left.
+BOT Aykut plays Blue8. BOT Aykut has 6 cards left.
+decksdarkby plays BlueDraw2. decksdarkby has 3 cards left!
+BOT Gözde draws Two
+BOT Gözde's turn is skipped
+BOT Erk plays Blue2. BOT Erk has 4 cards left.
+BOT Elif plays Blue6. BOT Elif has 3 cards left.
+BOT Beyza plays WildColor. BOT Beyza has 7 cards left.
+Selects color Blue
+BOT İrem plays Blue7. BOT İrem has 3 cards left.
+BOT Aykut plays Yellow7. BOT Aykut has 5 cards left.
+decksdarkby plays Yellow7. decksdarkby has 2 cards left!
+BOT Gözde plays WildDraw4. BOT Gözde has 11 cards left.
+Selects color Red
+BOT Erk draws Four
+BOT Erk's turn is skipped
+BOT Elif plays RedSkip. BOT Elif has 2 cards left.
+BOT Beyza's turn is skipped
+BOT İrem plays BlueSkip. BOT İrem has 2 cards left.
+BOT Aykut's turn is skipped
+decksdarkby draws.
+decksdarkby plays BlueReverse. decksdarkby has 2 cards left!
+Direction is reversed!
+BOT Aykut plays Blue0. BOT Aykut has 4 cards left.
+BOT İrem plays Blue4. BOT İrem has 1 cards left.
+BOT Beyza plays Red4. BOT Beyza has 6 cards left.
+BOT Elif draws.
+BOT Elif plays Red7. BOT Elif has 2 cards left.
+BOT Erk plays Green7. BOT Erk has 7 cards left.
+BOT Gözde plays GreenReverse. BOT Gözde has 10 cards left.
+Direction is reversed!
+BOT Erk plays Green0. BOT Erk has 6 cards left.
+BOT Elif declares UNO!
+BOT Elif plays GreenDraw2. BOT Elif has 1 cards left.
+BOT Beyza draws Two
+BOT Beyza's turn is skipped
+Game is finished! BOT İrem won the game.

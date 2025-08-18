@@ -1,0 +1,30 @@
+sl:Strings are immutable.
+sl:A Object is instance of a Class.
+sl:All classes extends Object class.
+sl:Math class should be imported static.
+sl:&& stands for and operation.
+sl:|| stands for or operation.
+sl:Integer is type-wraper of int.
+sl:Instance variables should be private.
+sl:String is not a primitive type.
+sl:Double is more precise than float.
+ta:Cannot create instances of abstract classes.
+ta:Override annotation is not a must.
+ta:Overloaded methods can have different return types.
+ta:protected variables accessible in the same package.
+ta:Formatters truncate the file.
+ta:Sets cannot have duplicate elements.
+ta:Sets are more efficient in searching.
+ta:List is an interface.
+ta:Generic methods can be overloaded.
+ta:^^ stands for xor operation.
+prof:Timer uses threading.
+prof:Instance variables stored in heap memory.
+prof:Local variables stored in call stack.
+prof:Different threads has different call stacks.
+prof:Method Area contains classwide information.
+prof:... is used for variable-length arguments.
+prof:There can be multi-catch in single catch block.
+prof:StringBuilders is more efficient for adding chars to String.
+prof:Split method takes regex.
+prof:(?=.) is lookup operation for regex.

@@ -1,0 +1,76 @@
+--Game Session Begins--
+EeehBeehGe plays WildDraw4. EeehBeehGe has 6 cards left!
+EeehBeehGe chooses color Green
+BOT Aykut draws Four
+BOT Aykut's turn is skipped
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem plays GreenReverse. BOT İrem has 8 cards left.
+Direction is reversed!
+BOT Aykut plays GreenSkip. BOT Aykut has 10 cards left.
+EeehBeehGe's turn is skipped
+BOT Emre plays YellowSkip. BOT Emre has 6 cards left.
+BOT Gözde's turn is skipped
+BOT Erk plays WildDraw4. BOT Erk has 6 cards left.
+Selects color Green
+BOT Elif draws Four
+BOT Elif's turn is skipped
+BOT Beyza draws.
+BOT Beyza draws.
+BOT Beyza plays Green7. BOT Beyza has 8 cards left.
+BOT İrem plays Blue7. BOT İrem has 7 cards left.
+BOT Aykut plays WildColor. BOT Aykut has 9 cards left.
+Selects color Green
+EeehBeehGe plays Green3. EeehBeehGe has 5 cards left!
+BOT Emre plays Green1. BOT Emre has 5 cards left.
+BOT Gözde plays Green3. BOT Gözde has 6 cards left.
+BOT Erk plays Green6. BOT Erk has 5 cards left.
+BOT Elif plays WildColor. BOT Elif has 10 cards left.
+Selects color Yellow
+BOT Beyza plays Yellow3. BOT Beyza has 7 cards left.
+BOT İrem plays Yellow2. BOT İrem has 6 cards left.
+BOT Aykut plays YellowSkip. BOT Aykut has 8 cards left.
+EeehBeehGe's turn is skipped
+BOT Emre plays YellowReverse. BOT Emre has 4 cards left.
+Direction is reversed!
+EeehBeehGe plays YellowDraw2. EeehBeehGe has 4 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+BOT İrem draws.
+BOT İrem draws.
+BOT İrem plays Yellow7. BOT İrem has 7 cards left.
+BOT Beyza plays Yellow1. BOT Beyza has 6 cards left.
+BOT Elif plays WildColor. BOT Elif has 9 cards left.
+Selects color Red
+BOT Erk plays Red5. BOT Erk has 4 cards left.
+BOT Gözde plays Red9. BOT Gözde has 5 cards left.
+BOT Emre plays Red9. BOT Emre has 3 cards left.
+EeehBeehGe plays Red3. EeehBeehGe has 3 cards left!
+BOT Aykut plays Blue3. BOT Aykut has 9 cards left.
+BOT İrem plays Blue9. BOT İrem has 6 cards left.
+BOT Beyza plays Blue3. BOT Beyza has 5 cards left.
+BOT Elif plays WildDraw4. BOT Elif has 8 cards left.
+Selects color Red
+BOT Erk draws Four
+BOT Erk's turn is skipped
+BOT Gözde plays Red4. BOT Gözde has 4 cards left.
+BOT Emre draws.
+BOT Emre draws.
+BOT Emre draws.
+BOT Emre plays WildColor. BOT Emre has 5 cards left.
+Selects color Blue
+EeehBeehGe draws.
+EeehBeehGe plays Blue9. EeehBeehGe has 3 cards left!
+BOT Aykut plays Yellow9. BOT Aykut has 8 cards left.
+BOT İrem draws.
+BOT İrem plays Yellow6. BOT İrem has 6 cards left.
+BOT Beyza draws.
+BOT Beyza draws.
+BOT Beyza plays Yellow4. BOT Beyza has 6 cards left.
+BOT Elif plays Yellow4. BOT Elif has 7 cards left.
+BOT Erk plays Yellow3. BOT Erk has 7 cards left.
+BOT Gözde draws.
+BOT Gözde draws.
+BOT Gözde plays Yellow5. BOT Gözde has 5 cards left.
+BOT Emre plays Yellow8. BOT Emre has 4 cards left.
+Saving the Game

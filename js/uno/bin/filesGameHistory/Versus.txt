@@ -1,0 +1,19 @@
+--Game Session Begins--
+HaisenHai plays YellowDraw2. HaisenHai has 6 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+HaisenHai plays Yellow3. HaisenHai has 5 cards left!
+BOT Aykut plays Yellow6. BOT Aykut has 8 cards left.
+HaisenHai plays Yellow5. HaisenHai has 4 cards left!
+BOT Aykut draws.
+BOT Aykut plays Yellow6. BOT Aykut has 8 cards left.
+HaisenHai plays Yellow9. HaisenHai has 3 cards left!
+BOT Aykut plays Red9. BOT Aykut has 7 cards left.
+HaisenHai plays WildColor. HaisenHai has 2 cards left!
+HaisenHai chooses color Green
+BOT Aykut plays GreenDraw2. BOT Aykut has 6 cards left.
+HaisenHai draws Two
+HaisenHai's turn is skipped
+BOT Aykut plays GreenReverse. BOT Aykut has 5 cards left.
+Direction is reversed!
+Saving the Game

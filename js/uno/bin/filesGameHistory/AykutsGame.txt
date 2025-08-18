@@ -1,0 +1,64 @@
+--Game Session Begins--
+AykutBir plays Green2. AykutBir has 6 cards left!
+BOT Aykut plays WildDraw4. BOT Aykut has 6 cards left.
+Selects color Blue
+BOT İrem draws Four
+BOT İrem's turn is skipped
+BOT Beyza plays Blue5. BOT Beyza has 6 cards left.
+BOT Elif plays Blue0. BOT Elif has 6 cards left.
+BOT Erk plays Blue5. BOT Erk has 6 cards left.
+AykutBir draws.
+AykutBir draws.
+AykutBir plays BlueDraw2. AykutBir has 7 cards left!
+BOT Aykut draws Two
+BOT Aykut's turn is skipped
+BOT İrem plays Blue1. BOT İrem has 10 cards left.
+BOT Beyza plays Blue9. BOT Beyza has 5 cards left.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif draws.
+BOT Elif plays Blue8. BOT Elif has 9 cards left.
+BOT Erk draws.
+BOT Erk plays Blue2. BOT Erk has 6 cards left.
+AykutBir draws.
+AykutBir draws.
+AykutBir plays WildDraw4. AykutBir has 8 cards left!
+AykutBir chooses color Green
+BOT Aykut draws Four
+BOT Aykut's turn is skipped
+BOT İrem plays WildDraw4. BOT İrem has 9 cards left.
+Selects color Yellow
+BOT Beyza draws Four
+BOT Beyza's turn is skipped
+BOT Elif plays Yellow3. BOT Elif has 8 cards left.
+BOT Erk draws.
+BOT Erk draws.
+BOT Erk plays YellowDraw2. BOT Erk has 7 cards left.
+AykutBir draws Two
+AykutBir's turn is skipped
+BOT Aykut plays YellowSkip. BOT Aykut has 11 cards left.
+BOT İrem's turn is skipped
+BOT Beyza plays Yellow5. BOT Beyza has 8 cards left.
+BOT Elif plays Yellow4. BOT Elif has 7 cards left.
+BOT Erk draws.
+BOT Erk plays Red4. BOT Erk has 7 cards left.
+AykutBir plays Red7. AykutBir has 9 cards left!
+BOT Aykut plays RedReverse. BOT Aykut has 10 cards left.
+Direction is reversed!
+AykutBir plays RedDraw2. AykutBir has 8 cards left!
+BOT Erk draws Two
+BOT Erk's turn is skipped
+BOT Elif plays RedDraw2. BOT Elif has 6 cards left.
+BOT Beyza draws Two
+BOT Beyza's turn is skipped
+BOT İrem plays Red4. BOT İrem has 8 cards left.
+BOT Aykut plays Red5. BOT Aykut has 9 cards left.
+AykutBir plays RedSkip. AykutBir has 7 cards left!
+BOT Erk's turn is skipped
+BOT Elif plays GreenSkip. BOT Elif has 5 cards left.
+BOT Beyza's turn is skipped
+BOT İrem plays WildColor. BOT İrem has 7 cards left.
+Selects color Red
+BOT Aykut plays Red1. BOT Aykut has 8 cards left.
+Saving the Game

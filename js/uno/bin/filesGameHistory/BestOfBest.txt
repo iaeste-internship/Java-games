@@ -1,0 +1,43 @@
+--Game Session Begins--
+MimarHanim plays Yellow8. MimarHanim has 6 cards left!
+BOT Aykut draws.
+BOT Aykut plays Yellow9. BOT Aykut has 7 cards left.
+BOT İrem plays Yellow4. BOT İrem has 6 cards left.
+BOT Beyza plays Blue4. BOT Beyza has 6 cards left.
+BOT Elif plays BlueDraw2. BOT Elif has 6 cards left.
+MimarHanim draws Two
+MimarHanim's turn is skipped
+BOT Aykut plays RedDraw2. BOT Aykut has 6 cards left.
+BOT İrem draws Two
+BOT İrem's turn is skipped
+BOT Beyza plays Red7. BOT Beyza has 5 cards left.
+BOT Elif plays Red1. BOT Elif has 5 cards left.
+MimarHanim plays Red1. MimarHanim has 7 cards left!
+BOT Aykut plays Red4. BOT Aykut has 5 cards left.
+BOT İrem plays Red8. BOT İrem has 7 cards left.
+BOT Beyza plays WildDraw4. BOT Beyza has 4 cards left.
+Selects color Red
+BOT Elif draws Four
+BOT Elif's turn is skipped
+MimarHanim plays WildDraw4. MimarHanim has 6 cards left!
+MimarHanim chooses color Green
+BOT Aykut draws Four
+BOT Aykut's turn is skipped
+BOT İrem plays Green9. BOT İrem has 6 cards left.
+BOT Beyza draws.
+BOT Beyza draws.
+BOT Beyza plays Green3. BOT Beyza has 5 cards left.
+BOT Elif plays GreenReverse. BOT Elif has 8 cards left.
+Direction is reversed!
+BOT Beyza plays BlueReverse. BOT Beyza has 4 cards left.
+Direction is reversed!
+BOT Elif plays Blue7. BOT Elif has 7 cards left.
+MimarHanim plays BlueSkip. MimarHanim has 5 cards left!
+BOT Aykut's turn is skipped
+BOT İrem plays Blue1. BOT İrem has 5 cards left.
+BOT Beyza plays Blue5. BOT Beyza has 3 cards left.
+BOT Elif plays Blue5. BOT Elif has 6 cards left.
+MimarHanim plays Blue4. MimarHanim has 4 cards left!
+BOT Aykut plays BlueReverse. BOT Aykut has 8 cards left.
+Direction is reversed!
+Saving the Game

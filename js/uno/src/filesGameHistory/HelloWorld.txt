@@ -1,0 +1,22 @@
+--Game Session Begins--
+AlaraAlarm plays Green8. AlaraAlarm has 6 cards left!
+BOT Aykut plays GreenReverse. BOT Aykut has 6 cards left.
+Direction is reversed!
+AlaraAlarm plays Green9. AlaraAlarm has 5 cards left!
+BOT Beyza plays Yellow9. BOT Beyza has 6 cards left.
+BOT İrem plays WildColor. BOT İrem has 6 cards left.
+Selects color Red
+BOT Aykut plays WildColor. BOT Aykut has 5 cards left.
+Selects color Yellow
+AlaraAlarm plays Yellow2. AlaraAlarm has 4 cards left!
+BOT Beyza plays Red2. BOT Beyza has 5 cards left.
+BOT İrem plays Red1. BOT İrem has 5 cards left.
+BOT Aykut plays Red4. BOT Aykut has 4 cards left.
+AlaraAlarm draws.
+AlaraAlarm plays WildDraw4. AlaraAlarm has 4 cards left!
+AlaraAlarm chooses color Green
+BOT Beyza draws Four
+BOT Beyza's turn is skipped
+BOT İrem plays Green5. BOT İrem has 4 cards left.
+BOT Aykut plays Green4. BOT Aykut has 3 cards left.
+Saving the Game

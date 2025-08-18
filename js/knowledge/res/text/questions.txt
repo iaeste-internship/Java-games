@@ -1,0 +1,30 @@
+sl:What is the difference between Object and Class?
+sl:What is OOP?
+sl:Is Strings objects?
+sl:What is primitive type?
+sl:How to use Scanner?
+sl:What is static field?
+sl:How to use enhanced for loop?
+sl:What is Array?
+sl:What is overloading a method?
+sl:How to declare a constructor?
+ta:What is ArrayList?
+ta:What is SortedSet?
+ta:What is TreeSet?
+ta:How to use Collections?
+ta:How to use Formatter?
+ta:What is abstract class?
+ta:What is interface?
+ta:How to use Swing?
+ta:What is JavaDoc?
+ta:When should you use HashMap?
+prof:What is SAM?
+prof:What is Comparable interface?
+prof:What is Comparator interface?
+prof:How to declare custom sort?
+prof:What is Skeleton?
+prof:How to create anonymous classes?
+prof:Why we need StringBuilders?
+prof:What is Stream?
+prof:Is it efficient to concatenation two Strings?
+prof:What is wild card?

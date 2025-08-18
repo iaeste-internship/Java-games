@@ -1,0 +1,8 @@
+NumPlayer 4
+0 YellowSkip Blue7 Blue6 GreenSkip 
+1 BlueReverse Yellow3 Yellow6 
+2 GreenSkip Blue1 Blue9 Blue4 
+3 Blue6 BlueSkip Blue8 Yellow8 Yellow5 Red3 YellowReverse Green0 Blue2 
+DiscardPile Green5 Green8 GreenReverse Green9 Yellow9 WildColor WildColor Yellow2 Red2 Red1 Red4 WildDraw4 Green5 Green4 
+DrawPile Green3 Red5 RedDraw2 Green2 Red6 Blue4 GreenDraw2 Red8 Red0 BlueSkip Yellow1 Green1 WildColor Red7 Green7 GreenDraw2 Blue3 YellowReverse Yellow4 Red9 Red3 WildDraw4 YellowDraw2 Red9 Yellow1 Blue9 Green7 Green4 YellowDraw2 WildDraw4 Green9 Red6 Yellow7 Yellow3 Yellow9 Blue3 Yellow6 Red5 Yellow2 Blue8 Blue5 BlueReverse Yellow0 Red2 Red1 RedDraw2 Green1 RedReverse GreenReverse Yellow7 Yellow4 WildDraw4 Green3 WildColor Blue7 Blue0 BlueDraw2 Yellow5 Red7 Blue1 BlueDraw2 Green6 YellowSkip Blue5 Red4 RedSkip RedReverse Blue2 Yellow8 Green2 RedSkip Green8 Red8 Green6 
+Direction Reverse

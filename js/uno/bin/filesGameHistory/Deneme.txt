@@ -1,0 +1,35 @@
+--Game Session Begins--
+decksdarkby plays WildDraw4. decksdarkby has 6 cards left!
+decksdarkby chooses color Green
+BOT Aykut draws Four
+BOT Aykut's turn is skipped
+BOT İrem plays Green6. BOT İrem has 6 cards left.
+BOT Beyza plays Green4. BOT Beyza has 6 cards left.
+BOT Elif plays GreenDraw2. BOT Elif has 6 cards left.
+BOT Erk draws Two
+BOT Erk's turn is skipped
+decksdarkby plays Green9. decksdarkby has 5 cards left!
+BOT Aykut plays WildColor. BOT Aykut has 10 cards left.
+Selects color Red
+BOT İrem plays Red2. BOT İrem has 5 cards left.
+BOT Beyza plays Green2. BOT Beyza has 5 cards left.
+BOT Elif plays Green4. BOT Elif has 5 cards left.
+BOT Erk draws.
+BOT Erk draws.
+BOT Erk plays Green5. BOT Erk has 10 cards left.
+decksdarkby plays GreenReverse. decksdarkby has 4 cards left!
+Direction is reversed!
+BOT Erk draws.
+BOT Erk draws.
+BOT Erk plays WildDraw4. BOT Erk has 11 cards left.
+Selects color Blue
+BOT Elif draws Four
+BOT Elif's turn is skipped
+BOT Beyza plays Blue7. BOT Beyza has 4 cards left.
+BOT İrem plays BlueReverse. BOT İrem has 4 cards left.
+Direction is reversed!
+BOT Beyza plays WildColor. BOT Beyza has 3 cards left.
+Selects color Green
+BOT Elif plays Green9. BOT Elif has 8 cards left.
+BOT Erk plays Blue9. BOT Erk has 10 cards left.
+Saving the Game
