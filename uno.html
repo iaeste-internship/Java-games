@@ -11,9 +11,9 @@
             await cheerpjInit();
 
         });
-        async function runUno() {
+        async function runUno(event) {
             if (event) event.preventDefault();
-            const btn = document.getElementById('play-uno');
+            const btn = document.getElementById('.button');
             btn.disabled = true;
             btn.querySelector('.play-icon').textContent = '⏳';
             await cheerpjRunJar("./JAR/UNO.jar");
@@ -55,7 +55,7 @@
   <main class="main">
     <section id="description" class="description">
       <h2>UNO:</h2>
-      <button href="#" onclick="runUno(event)" class="button">
+      <button  onclick="runUno(event)" class="button">
         <img src="img/uno.png" alt="">
           <span  class="play-icon" data-i18n="play">▶</span>
       </button>
