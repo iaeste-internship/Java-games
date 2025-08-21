@@ -12,10 +12,16 @@
 
         });
         async function runUno() {
-            await cheerpjRunJar(".JAR/UNO.jar");
+            if (event) event.preventDefault();
+            const btn = document.getElementById('play-uno');
+            btn.disabled = true;
+            btn.querySelector('.play-icon').textContent = '⏳';
+            await cheerpjRunJar("./JAR/UNO.jar");
         }
     </script>
-
+    <style>
+        #uno-container { min-height: 600px; border: 1px dashed #ccc; margin-top: 16px; }
+    </style>
 </head>
 
 <body>
@@ -27,9 +33,9 @@
         </a>
         <nav id="navmenu" class="navmenu flex-grow-1 text-center ">
           <ul class="d-inline-flex list-unstyled mb-0">
-            <il><a href="index.html#research" class="">Research</a></il>
-            <il><a href="index.html#games" class="">Games</a></il>
-            <il><a href="https://www.ku.edu.tr/" class="">Home</a></il>
+            <il><a href="index.html#research" class="" data-i18n="research"></a></il>
+            <il><a href="index.html#games" class="" data-i18n="games"></a></il>
+            <il><a href="https://www.ku.edu.tr/" class="" data-i18n="home"></a></il>
 
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -49,10 +55,10 @@
   <main class="main">
     <section id="description" class="description">
       <h2>UNO:</h2>
-      <a href="#" onclick="runUno()" class="button">
+      <button href="#" onclick="runUno(event)" class="button">
         <img src="img/uno.png" alt="">
           <span  class="play-icon" data-i18n="play">▶</span>
-      </a>
+      </button>
         <div class="description-box">
             <h3 data-i18n="gameDescriptionUno"> </h3>
         </div>
