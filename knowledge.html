@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8">
     <title>Koç</title>
-    <link href="main.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- CheerpJ loader (4.2) -->
+    <link href="main.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
-
-    <!-- Styles for the game shell (16:9 stage, loader, controls) -->
     <style>
         .game-stage{position:relative; width:100%; max-width:1100px; margin:1rem 0; background:#000; border-radius:12px; overflow:hidden; aspect-ratio:16/9;}
         .game-loading{position:absolute; inset:0; display:grid; place-items:center; font:600 1rem system-ui; color:#fff; letter-spacing:.3px;}
@@ -20,21 +17,18 @@
     </style>
 
     <script>
-        // ===== CheerpJ preload scaffold (CJ 4.x, Java 17) =====
-        // Paste the object returned by cjGetRuntimeResources() after first successful run
-        const PRELOAD_RESOURCES = null;
-        const CJ_VERSION = 17; // Your JAR targets Java 17
-
+        // ===== CheerpJ preload with race-proof init (CJ 4.x, Java 17) =====
+        const PRELOAD_RESOURCES = null; // paste JSON from cjGetRuntimeResources() later
         let cjReady = false;
-        let cjInitPromise = null;
+        let cjInitPromise = null; // guards concurrent init calls
 
         async function initCheerpJWithPreload() {
             if (cjReady) return true;
-            if (cjInitPromise) return cjInitPromise; // prevent double initialization
+            if (cjInitPromise) return cjInitPromise; // wait for in-flight init
 
             const loadingEl = document.querySelector('.game-loading');
             const opts = {
-                version: CJ_VERSION,
+                version: 17, // your JAR targets Java 17
                 status: "default",
                 preloadProgress: (done, total) => {
                     if (!loadingEl) return;
@@ -49,7 +43,7 @@
             cjInitPromise = (async () => {
                 await cheerpjInit(opts);
                 cjReady = true;
-                // Helper to capture optimal preload list on first successful run
+                // Helper on first run: print optimal preload list
                 if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
                     try {
                         const obj = await cjGetRuntimeResources();
@@ -60,14 +54,17 @@
                 return true;
             })();
 
-            try { return await cjInitPromise; }
-            finally { if (!cjReady) cjInitPromise = null; }
+            try {
+                return await cjInitPromise;
+            } finally {
+                // keep the resolved promise for future callers; if it rejected, allow retries
+                if (!cjReady) cjInitPromise = null;
+            }
         }
 
         // GitHub Pages–friendly resolver → returns CheerpJ path (with /app prefix)
         async function resolveAppPath(appRelativePath) {
-            // appRelativePath example: "JAR/Knowledge.jar"
-            const base = window.location.pathname.replace(/[^/]*$/, ''); // "/repo/" or "/"
+            const base = window.location.pathname.replace(/[^/]*$/, ''); // '/repo/' or '/'
             const realUrls = [ base + appRelativePath, '/' + appRelativePath.replace(/^\/+/, '') ];
             for (const realUrl of realUrls) {
                 try {
@@ -83,14 +80,13 @@
             if (e) e.preventDefault();
             const btn = document.getElementById('play-knowledge');
 
-            // Create the container if it doesn't exist
-            let stage = document.getElementById('game-stage');
+            // Create stage on first run
+            let stage = document.getElementById('knowledge-stage');
             if (!stage) {
                 stage = document.createElement('div');
-                stage.id = 'game-stage';
+                stage.id = 'knowledge-stage';
                 stage.className = 'game-stage';
 
-                // HUD and overlays
                 const controls = document.createElement('div');
                 controls.className = 'game-controls';
                 controls.innerHTML = `
@@ -105,63 +101,51 @@
                 paused.textContent = 'Game paused';
 
                 stage.append(controls, loading, paused);
-                // Insert right after the play button
                 (btn.parentElement || document.body).insertBefore(stage, btn.nextSibling);
 
-                // Controls
-                controls.querySelector('#btn-full').addEventListener('click', async () => {
-                    const el = stage;
-                    if (!document.fullscreenElement) {
-                        if (el.requestFullscreen) await el.requestFullscreen();
-                    } else {
-                        if (document.exitFullscreen) await document.exitFullscreen();
-                    }
-                });
-                controls.querySelector('#btn-restart').addEventListener('click', () => {
-                    location.reload();
-                });
-
-                // Visual pause when the tab becomes hidden
+                controls.querySelector('#btn-full').onclick = async () => {
+                    if (!document.fullscreenElement) await stage.requestFullscreen?.();
+                    else await document.exitFullscreen?.();
+                };
+                controls.querySelector('#btn-restart').onclick = () => location.reload();
                 document.addEventListener('visibilitychange', () => {
                     paused.classList.toggle('show', document.hidden);
                 });
             }
 
-            // Button state (disable during launch)
+            // Button state
             const icon = btn.querySelector('.play-icon');
-            const prevIcon = icon ? icon.textContent : null;
+            const prev = icon ? icon.textContent : null;
             btn.style.pointerEvents = 'none';
             btn.setAttribute('aria-busy', 'true');
             if (icon) icon.textContent = '⏳';
 
             try {
-                await initCheerpJWithPreload();
+                await initCheerpJWithPreload(); // race-proofed
 
-                // Create a CheerpJ display that fills the container
+                const jarAppPath = await resolveAppPath('JAR/Knowledge.jar');
+                console.log('Using JAR path:', jarAppPath);
+
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                // Resolve to CheerpJ path and run the JAR (uses Main-Class from manifest)
-                const jarAppPath = await resolveAppPath('JAR/Knowledge.jar');
-                console.log('Using JAR path:', jarAppPath);
-
+                // Use manifest Main-Class for Knowledge.jar
                 const exit = await cheerpjRunJar(jarAppPath);
                 console.log('Knowledge.jar exited with code', exit);
+
+                stage.querySelector('.game-loading')?.remove();
             } catch (err) {
                 console.error('Knowledge launch error:', err);
                 alert('Failed to start Knowledge.jar. See Console for details.');
             } finally {
-                // Remove loader and restore button state
-                const loading = stage.querySelector('.game-loading');
-                if (loading) loading.remove();
                 btn.style.pointerEvents = '';
                 btn.removeAttribute('aria-busy');
-                if (icon) icon.textContent = prevIcon || '▶';
+                if (icon) icon.textContent = prev || '▶';
             }
         }
 
-        // Warm up CheerpJ on load (race-proofed)
+        // Warm up on load; safe even if user clicks during init
         window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
     </script>
 </head>
@@ -169,14 +153,14 @@
 <div class="header">
     <div class="branding d-flex align-items-center">
         <div class="container position-relative d-flex align-items-left">
-            <a class="logo d-flex align-items-left me-3" href="index.html">
-                <img alt="Logo" src="img/cropped-logo.png"/>
+            <a href="index.html" class="logo d-flex align-items-left me-3">
+                <img src="img/cropped-logo.png" alt="Logo">
             </a>
-            <nav class="navmenu flex-grow-1 text-center" id="navmenu">
+            <nav id="navmenu" class="navmenu flex-grow-1 text-center">
                 <ul class="d-inline-flex list-unstyled mb-0">
-                    <li><a class="" data-i18n="research" href="index.html#research"></a></li>
-                    <li><a class="" data-i18n="games" href="index.html#games"></a></li>
-                    <li><a class="" data-i18n="home" href="https://www.ku.edu.tr/"></a></li>
+                    <li><a href="index.html#research" data-i18n="research"></a></li>
+                    <li><a href="index.html#games" data-i18n="games"></a></li>
+                    <li><a href="https://www.ku.edu.tr/" data-i18n="home"></a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -192,14 +176,12 @@
 </div>
 
 <main class="main">
-    <section class="description" id="description">
-        <div class="game-title">
-            <h2>Knowledge:</h2>
-        </div>
-        <a class="button" href="#" onclick="runKnowledge(event)" id="play-knowledge">
-            <img alt="" src="img/knowledge.png"/>
+    <section id="description" class="description">
+        <h2>Knowledge:</h2>
+        <button id="play-knowledge" onclick="runKnowledge(event)" class="button">
+            <img src="img/knowledge.png" alt="">
             <span class="play-icon" data-i18n="play">▶</span>
-        </a>
+        </button>
         <div class="description-box">
             <h3 data-i18n="gameDescriptionKnowledge"></h3>
         </div>
@@ -208,7 +190,7 @@
 
 <script src="main.js"></script>
 <script>
-    // Login gate: redirect to login page if not logged in
+    // Login gate: redirect if not logged in
     if (localStorage.getItem('loggedIn') !== 'true') {
         const current = window.location.pathname.split('/').pop().replace('.html','');
         window.location.replace('login.html?target=' + current);
