@@ -5,10 +5,7 @@
     <title>Koç</title>
     <link href="main.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- CheerpJ loader (4.2) -->
     <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
-
-    <!-- Styles for the game shell (16:9 stage, loader, controls) -->
     <style>
         .game-stage{position:relative; width:100%; max-width:1100px; margin:1rem 0; background:#000; border-radius:12px; overflow:hidden; aspect-ratio:16/9;}
         .game-loading{position:absolute; inset:0; display:grid; place-items:center; font:600 1rem system-ui; color:#fff; letter-spacing:.3px;}
@@ -17,17 +14,19 @@
         .game-controls button:hover{background:rgba(255,255,255,.2)}
         .paused-overlay{position:absolute; inset:0; background:rgba(0,0,0,.45); color:#fff; display:none; align-items:center; justify-content:center; font:600 1.1rem system-ui; z-index:2}
         .paused-overlay.show{display:flex}
+        .debug-panel{background:#111; color:#cfcfcf; border:1px solid #333; border-radius:8px; padding:10px; font:12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+        .debug-panel .row{margin:.25rem 0}
+        .debug-panel code{color:#7dd3fc}
+        .debug-toggle{margin-top:8px}
     </style>
 
-    <!-- Preloading scaffold (paste resources after first successful run) -->
     <script>
-        // Paste the object returned by cjGetRuntimeResources() here after your first successful run.
+        // ===== Preloading scaffold =====
         const PRELOAD_RESOURCES = null;
-
         let cjReady = false;
         async function initCheerpJWithPreload() {
             if (cjReady) return;
-            const loadingEl = document.querySelector('.game-loading'); // updates loader text
+            const loadingEl = document.querySelector('.game-loading');
             await cheerpjInit({
                 status: "default",
                 preloadResources: PRELOAD_RESOURCES || undefined,
@@ -38,8 +37,6 @@
                 }
             });
             cjReady = true;
-
-            // Helper to capture optimal preload list (first run only)
             if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
                 cjGetRuntimeResources().then(obj => {
                     console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
@@ -48,26 +45,52 @@
             }
         }
 
-        // GitHub Pages friendly: resolve a path that works on both user sites and project sites
-        async function resolveCheerpJJar(appRelativePath) {
-            // appRelativePath example: "JAR/UNO.jar"
-            const repoBase = window.location.pathname.replace(/[^/]*$/, ''); // "/", or "/repo/"
-            const candidates = [
-                '/app' + repoBase + appRelativePath, // /app/repo/JAR/UNO.jar or /app/JAR/UNO.jar
-                '/app/' + appRelativePath            // /app/JAR/UNO.jar
-            ];
-            for (const appPath of candidates) {
-                const realUrl = appPath.replace(/^\/app/, ''); // actual HTTP URL to probe
-                try {
-                    const r = await fetch(realUrl, { method: 'HEAD', cache: 'no-store' });
-                    if (r.ok) return appPath; // return CheerpJ path
-                } catch {}
-            }
-            throw new Error('UNO.jar not found at: ' + candidates.map(c => c.replace(/^\/app/, '')).join(' , '));
+        // ===== Path resolver with detailed diagnostics =====
+        function logDebug(msg) {
+            const pre = document.getElementById('debug-log');
+            if (pre) pre.textContent += msg + "\n";
+            console.log(msg);
         }
-    </script>
 
-    <script>
+        async function probeUrl(url) {
+            try {
+                const head = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+                const ok = head.ok;
+                const status = head.status;
+                const len = head.headers.get('content-length');
+                // Range test (GET 0-0)
+                let rangeOk = false, rangeStatus = null;
+                try {
+                    const r = await fetch(url, { method: 'GET', headers: { 'Range': 'bytes=0-0' }, cache: 'no-store' });
+                    rangeStatus = r.status;
+                    rangeOk = r.status === 206;
+                } catch (e) {}
+                return { ok, status, len, rangeOk, rangeStatus };
+            } catch (e) {
+                return { ok:false, status:0, len:null, rangeOk:false, rangeStatus:null, error: String(e) };
+            }
+        }
+
+        async function resolveCheerpJJarDetailed(appRelativePath) {
+            const repoBase = window.location.pathname.replace(/[^/]*$/, ''); // "/", or "/repo/"
+            const realCandidates = [
+                repoBase + appRelativePath, // "/repo/JAR/UNO.jar" or "/JAR/UNO.jar"
+                '/' + appRelativePath.replace(/^\//,'') // "/JAR/UNO.jar"
+            ];
+            for (const realUrl of realCandidates) {
+                logDebug('Probing ' + realUrl + ' ...');
+                const res = await probeUrl(realUrl);
+                logDebug('  status=' + res.status + ' content-length=' + (res.len||'?') + ' range=' + res.rangeStatus + (res.rangeOk?' (OK)':' (NOT 206)'));
+                if (res.ok) {
+                    // Return CheerpJ path (with /app prefix)
+                    const appPath = '/app' + realUrl;
+                    return { appPath, realUrl, diag: res };
+                }
+            }
+            throw new Error('UNO.jar not reachable at: ' + realCandidates.join(' , '));
+        }
+
+        // ===== UNO launcher =====
         async function runUno(e) {
             if (e) e.preventDefault();
             const btn = document.getElementById('play-uno');
@@ -79,12 +102,12 @@
                 stage.id = 'uno-stage';
                 stage.className = 'game-stage';
 
-                // HUD and overlays
                 const controls = document.createElement('div');
                 controls.className = 'game-controls';
                 controls.innerHTML = `
           <button id="btn-full" type="button">Fullscreen</button>
           <button id="btn-restart" type="button">Restart</button>
+          <button id="btn-debug" type="button">Show debug</button>
         `;
                 const loading = document.createElement('div');
                 loading.className = 'game-loading';
@@ -96,27 +119,20 @@
                 stage.append(controls, loading, paused);
                 (btn.parentElement || document.body).insertBefore(stage, btn.nextSibling);
 
-                // Fullscreen toggle
                 controls.querySelector('#btn-full').addEventListener('click', async () => {
                     const el = stage;
-                    if (!document.fullscreenElement) {
-                        if (el.requestFullscreen) await el.requestFullscreen();
-                    } else {
-                        if (document.exitFullscreen) await document.exitFullscreen();
-                    }
+                    if (!document.fullscreenElement) await el.requestFullscreen?.();
+                    else await document.exitFullscreen?.();
                 });
-                // Simple restart (reload page)
-                controls.querySelector('#btn-restart').addEventListener('click', () => {
-                    location.reload();
+                controls.querySelector('#btn-restart').addEventListener('click', () => location.reload());
+                controls.querySelector('#btn-debug').addEventListener('click', () => {
+                    document.getElementById('debug-wrap').classList.toggle('d-none');
                 });
-
-                // Visual pause when the tab becomes hidden
                 document.addEventListener('visibilitychange', () => {
                     paused.classList.toggle('show', document.hidden);
                 });
             }
 
-            // Button state (disable during launch)
             const icon = btn.querySelector('.play-icon');
             const prevIcon = icon ? icon.textContent : null;
             btn.style.pointerEvents = 'none';
@@ -126,21 +142,19 @@
             try {
                 await initCheerpJWithPreload();
 
-                // Resolve the correct JAR path for GitHub Pages
-                const jarPath = await resolveCheerpJJar('JAR/UNO.jar');
-                console.log('Using JAR path:', jarPath);
+                const { appPath, realUrl } = await resolveCheerpJJarDetailed('JAR/UNO.jar');
+                logDebug('Using CheerpJ path: ' + appPath);
 
-                // Create a CheerpJ display that fills the container
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                const exit = await cheerpjRunJar(jarPath);
+                const exit = await cheerpjRunJar(appPath);
                 console.log('UNO.jar finished with code', exit);
                 stage.querySelector('.game-loading')?.remove();
             } catch (err) {
-                console.error(err);
-                alert('Failed to start UNO.jar. Open DevTools → Network, and open the UNO.jar request.');
+                logDebug('ERROR: ' + err.message);
+                alert('Failed to start UNO.jar. See debug panel / Console.');
             } finally {
                 btn.style.pointerEvents = '';
                 btn.removeAttribute('aria-busy');
@@ -148,7 +162,6 @@
             }
         }
 
-        // Warm up CheerpJ on page load to reduce time-to-first-frame on click
         window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
     </script>
 </head>
@@ -162,9 +175,9 @@
             </a>
             <nav id="navmenu" class="navmenu flex-grow-1 text-center">
                 <ul class="d-inline-flex list-unstyled mb-0">
-                    <li><a href="index.html#research" class="" data-i18n="research"></a></li>
-                    <li><a href="index.html#games" class="" data-i18n="games"></a></li>
-                    <li><a href="https://www.ku.edu.tr/" class="" data-i18n="home"></a></li>
+                    <li><a href="index.html#research" data-i18n="research"></a></li>
+                    <li><a href="index.html#games" data-i18n="games"></a></li>
+                    <li><a href="https://www.ku.edu.tr/" data-i18n="home"></a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -189,12 +202,15 @@
         <div class="description-box">
             <h3 data-i18n="gameDescriptionUno"></h3>
         </div>
+        <div id="debug-wrap" class="debug-panel d-none">
+            <div class="row"><strong>Debug log</strong></div>
+            <pre id="debug-log"></pre>
+        </div>
     </section>
 </main>
 
 <script src="main.js"></script>
 <script>
-    // Login gate: redirect to login page if not logged in
     if (localStorage.getItem('loggedIn') !== 'true') {
         const current = window.location.pathname.split('/').pop().replace('.html','');
         window.location.replace('login.html?target=' + current);
