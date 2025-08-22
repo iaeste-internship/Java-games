@@ -17,18 +17,17 @@
         .game-controls button:hover{background:rgba(255,255,255,.2)}
         .paused-overlay{position:absolute; inset:0; background:rgba(0,0,0,.45); color:#fff; display:none; align-items:center; justify-content:center; font:600 1.1rem system-ui; z-index:2}
         .paused-overlay.show{display:flex}
-        /* legacy UNO container kept for compatibility */
-        #uno-container { min-height: 600px; border: 1px dashed #ccc; margin-top: 16px; }
     </style>
 
     <!-- Preloading scaffold (paste resources after first successful run) -->
     <script>
         // Paste the object returned by cjGetRuntimeResources() here after your first successful run.
         const PRELOAD_RESOURCES = null;
+
         let cjReady = false;
         async function initCheerpJWithPreload() {
             if (cjReady) return;
-            const loadingEl = document.querySelector('.game-loading'); // targets loader text
+            const loadingEl = document.querySelector('.game-loading'); // updates loader text
             await cheerpjInit({
                 status: "default",
                 preloadResources: PRELOAD_RESOURCES || undefined,
@@ -39,6 +38,7 @@
                 }
             });
             cjReady = true;
+
             // Helper to capture optimal preload list (first run only)
             if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
                 cjGetRuntimeResources().then(obj => {
@@ -47,11 +47,26 @@
                 }).catch(()=>{});
             }
         }
-        // Warm up on page load
-        window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
+
+        // GitHub Pages friendly: resolve a path that works on both user sites and project sites
+        async function resolveCheerpJJar(appRelativePath) {
+            // appRelativePath example: "JAR/UNO.jar"
+            const repoBase = window.location.pathname.replace(/[^/]*$/, ''); // "/", or "/repo/"
+            const candidates = [
+                '/app' + repoBase + appRelativePath, // /app/repo/JAR/UNO.jar or /app/JAR/UNO.jar
+                '/app/' + appRelativePath            // /app/JAR/UNO.jar
+            ];
+            for (const appPath of candidates) {
+                const realUrl = appPath.replace(/^\/app/, ''); // actual HTTP URL to probe
+                try {
+                    const r = await fetch(realUrl, { method: 'HEAD', cache: 'no-store' });
+                    if (r.ok) return appPath; // return CheerpJ path
+                } catch {}
+            }
+            throw new Error('UNO.jar not found at: ' + candidates.map(c => c.replace(/^\/app/, '')).join(' , '));
+        }
     </script>
 
-    <!-- UNO launcher with Minijuegos-style shell -->
     <script>
         async function runUno(e) {
             if (e) e.preventDefault();
@@ -79,7 +94,6 @@
                 paused.textContent = 'Game paused';
 
                 stage.append(controls, loading, paused);
-                // Insert right after the play button
                 (btn.parentElement || document.body).insertBefore(stage, btn.nextSibling);
 
                 // Fullscreen toggle
@@ -112,24 +126,30 @@
             try {
                 await initCheerpJWithPreload();
 
+                // Resolve the correct JAR path for GitHub Pages
+                const jarPath = await resolveCheerpJJar('JAR/UNO.jar');
+                console.log('Using JAR path:', jarPath);
+
+                // Create a CheerpJ display that fills the container
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                const exit = await cheerpjRunJar('./JAR/UNO.jar');
+                const exit = await cheerpjRunJar(jarPath);
                 console.log('UNO.jar finished with code', exit);
+                stage.querySelector('.game-loading')?.remove();
             } catch (err) {
-                alert('Failed to start UNO.jar. Check the console/Network tab.');
                 console.error(err);
+                alert('Failed to start UNO.jar. Open DevTools → Network, and open the UNO.jar request.');
             } finally {
-                // Remove loader and restore button state
-                const loading = stage.querySelector('.game-loading');
-                if (loading) loading.remove();
                 btn.style.pointerEvents = '';
                 btn.removeAttribute('aria-busy');
                 if (icon) icon.textContent = prevIcon || '▶';
             }
         }
+
+        // Warm up CheerpJ on page load to reduce time-to-first-frame on click
+        window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
     </script>
 </head>
 
@@ -149,7 +169,7 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
             <div id="lang-switcher">
-                <button class="lang-btn " data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="es">ES</button>
                 <span class="separator">|</span>
                 <button class="lang-btn" data-lang="en">EN</button>
                 <span class="separator">|</span>
@@ -180,6 +200,5 @@
         window.location.replace('login.html?target=' + current);
     }
 </script>
-
 </body>
 </html>
