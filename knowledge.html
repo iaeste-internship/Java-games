@@ -5,7 +5,7 @@
     <title>Koç</title>
     <link href="main.css" rel="stylesheet"/>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- CheerpJ loader -->
+    <!-- CheerpJ loader (4.2) -->
     <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
 
     <!-- Styles for the game shell (16:9 stage, loader, controls) -->
@@ -17,35 +17,73 @@
         .game-controls button:hover{background:rgba(255,255,255,.2)}
         .paused-overlay{position:absolute; inset:0; background:rgba(0,0,0,.45); color:#fff; display:none; align-items:center; justify-content:center; font:600 1.1rem system-ui; z-index:2}
         .paused-overlay.show{display:flex}
-        /* (Optional) UNO container if reused on other pages */
-        #uno-container { min-height: 600px; border: 1px dashed #ccc; margin-top: 16px; }
     </style>
 
     <script>
-        // Ensure CheerpJ is initialized once per page
+        // ===== CheerpJ preload scaffold (CJ 4.x, Java 17) =====
+        // Paste the object returned by cjGetRuntimeResources() after first successful run
+        const PRELOAD_RESOURCES = null;
+        const CJ_VERSION = 17; // Your JAR targets Java 17
+
         let cjReady = false;
-        async function ensureCheerpJ() {
-            if (cjReady) return;
-            try {
-                await cheerpjInit();
-                cjReady = true;
-            } catch (err) {
-                console.error('CheerpJ init failed', err);
-                throw err;
+        let cjInitPromise = null;
+
+        async function initCheerpJWithPreload() {
+            if (cjReady) return true;
+            if (cjInitPromise) return cjInitPromise; // prevent double initialization
+
+            const loadingEl = document.querySelector('.game-loading');
+            const opts = {
+                version: CJ_VERSION,
+                status: "default",
+                preloadProgress: (done, total) => {
+                    if (!loadingEl) return;
+                    const pct = total ? Math.floor((done * 100) / total) : 0;
+                    loadingEl.textContent = `Loading… ${pct}%`;
+                }
+            };
+            if (PRELOAD_RESOURCES && typeof PRELOAD_RESOURCES === "object") {
+                opts.preloadResources = PRELOAD_RESOURCES;
             }
+
+            cjInitPromise = (async () => {
+                await cheerpjInit(opts);
+                cjReady = true;
+                // Helper to capture optimal preload list on first successful run
+                if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
+                    try {
+                        const obj = await cjGetRuntimeResources();
+                        console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
+                        console.log(JSON.stringify(obj, null, 2));
+                    } catch {}
+                }
+                return true;
+            })();
+
+            try { return await cjInitPromise; }
+            finally { if (!cjReady) cjInitPromise = null; }
         }
 
-        // Warm up CheerpJ on load to reduce time-to-first-frame on click
-        window.addEventListener('load', async () => {
-            try { await ensureCheerpJ(); } catch {}
-        });
+        // GitHub Pages–friendly resolver → returns CheerpJ path (with /app prefix)
+        async function resolveAppPath(appRelativePath) {
+            // appRelativePath example: "JAR/Knowledge.jar"
+            const base = window.location.pathname.replace(/[^/]*$/, ''); // "/repo/" or "/"
+            const realUrls = [ base + appRelativePath, '/' + appRelativePath.replace(/^\/+/, '') ];
+            for (const realUrl of realUrls) {
+                try {
+                    const r = await fetch(realUrl, { method: 'HEAD', cache: 'no-store' });
+                    if (r.ok) return '/app' + realUrl;
+                } catch {}
+            }
+            throw new Error('Knowledge.jar not found at: ' + realUrls.join(' , '));
+        }
 
-        // Launch Knowledge.jar inside a 16:9 container, with fullscreen/restart controls
+        // ===== Knowledge launcher =====
         async function runKnowledge(e) {
             if (e) e.preventDefault();
             const btn = document.getElementById('play-knowledge');
 
-            // Create the container if it doesn't exist yet
+            // Create the container if it doesn't exist
             let stage = document.getElementById('game-stage');
             if (!stage) {
                 stage = document.createElement('div');
@@ -70,7 +108,7 @@
                 // Insert right after the play button
                 (btn.parentElement || document.body).insertBefore(stage, btn.nextSibling);
 
-                // Fullscreen toggle
+                // Controls
                 controls.querySelector('#btn-full').addEventListener('click', async () => {
                     const el = stage;
                     if (!document.fullscreenElement) {
@@ -79,12 +117,11 @@
                         if (document.exitFullscreen) await document.exitFullscreen();
                     }
                 });
-                // Simple restart (reload page)
                 controls.querySelector('#btn-restart').addEventListener('click', () => {
                     location.reload();
                 });
 
-                // Show a visual pause when the tab loses focus
+                // Visual pause when the tab becomes hidden
                 document.addEventListener('visibilitychange', () => {
                     paused.classList.toggle('show', document.hidden);
                 });
@@ -100,18 +137,20 @@
             try {
                 await initCheerpJWithPreload();
 
-                // Create a CheerpJ display that fills the container (like an iframe embed)
-                // Note: cheerpjCreateDisplay(-1, -1, parent) makes the canvas match the parent.
+                // Create a CheerpJ display that fills the container
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                // IMPORTANT: Use the exact path you specified
-                const exit = await cheerpjRunJar('./JAR/Knowledge.jar');
-                console.log('Knowledge.jar finished with code', exit);
+                // Resolve to CheerpJ path and run the JAR (uses Main-Class from manifest)
+                const jarAppPath = await resolveAppPath('JAR/Knowledge.jar');
+                console.log('Using JAR path:', jarAppPath);
+
+                const exit = await cheerpjRunJar(jarAppPath);
+                console.log('Knowledge.jar exited with code', exit);
             } catch (err) {
-                alert('Failed to start Knowledge.jar. Check the console/Network tab.');
-                console.error(err);
+                console.error('Knowledge launch error:', err);
+                alert('Failed to start Knowledge.jar. See Console for details.');
             } finally {
                 // Remove loader and restore button state
                 const loading = stage.querySelector('.game-loading');
@@ -121,42 +160,9 @@
                 if (icon) icon.textContent = prevIcon || '▶';
             }
         }
-        const PRELOAD_RESOURCES = null;
-        // Example (replace null with something like):
-        // const PRELOAD_RESOURCES = {
-        //   "/lts/cheerpj-4.2/rt.jar": [0,1,2,3,4,5],
-        //   "/lts/cheerpj-4.2/jce.jar": [0,1,2],
-        //   ...
-        // };
 
-        let cjReady = false;
-        async function initCheerpJWithPreload() {
-            if (cjReady) return;
-
-            // Optional: wire this to your loader UI
-            const loadingEl = document.querySelector('.game-loading'); // from your overlay
-
-            await cheerpjInit({
-                status: "default",                 // brief built-in status messages
-                preloadResources: PRELOAD_RESOURCES || undefined, // enable parallel preloading if available
-                preloadProgress: (done, total) => {
-                    if (!loadingEl) return;
-                    const pct = total ? Math.floor((done * 100) / total) : 0;
-                    loadingEl.textContent = `Loading… ${pct}%`;
-                }
-            });
-
-            cjReady = true;
-
-            // Developer helper (first run only): capture the optimal preload list.
-            if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
-                // Open DevTools → Console to copy this object and paste it into PRELOAD_RESOURCES above.
-                cjGetRuntimeResources().then(obj => {
-                    console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
-                    console.log(JSON.stringify(obj, null, 2));
-                }).catch(()=>{});
-            }
-        }
+        // Warm up CheerpJ on load (race-proofed)
+        window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
     </script>
 </head>
 <body>
