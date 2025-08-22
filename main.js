@@ -1,32 +1,40 @@
 // Wait until the HTML document is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Get references to the cookie banner and its buttons
+    // 1) Exit early if this page has no cookie banner
     const banner = document.getElementById('cookie-banner');
-    const acceptAll = document.getElementById('accept-all');
-    const rejectAll = document.getElementById('reject-all');
-    const customize = document.getElementById('customize');
-    const closeBtn = document.getElementById('cookie-close');
-    const user = document.getElementById('username')?.value ?? ''; // Optional username input
-    const pass = document.getElementById('password')?.value ?? ''; // Optional password input
+    if (!banner) return;
 
-    // Show the cookie banner after a small delay
-    setTimeout(() => banner.classList.add('show'), 200);
+    // 2) Safely grab references (they may be missing on some pages)
+    const $ = (id) => document.getElementById(id);
+    const acceptAll = $('accept-all');
+    const rejectAll = $('reject-all');
+    const customize = $('customize');
+    const closeBtn  = $('cookie-close');
 
-    // Function to store the user's cookie consent choice
+    // 3) Do not re-open the banner if consent is already stored
+    const saved = localStorage.getItem('cookieConsent');
+    if (!saved) setTimeout(() => banner.classList.add('show'), 200);
+
+    // 4) Store user's choice and hide the banner
     function setConsent(value) {
-        banner.classList.remove('show'); // Hide the banner
-        console.log('Cookie consent:', value); // Log the choice (could be replaced with saving in localStorage)
+        localStorage.setItem('cookieConsent', value);
+        banner.classList.remove('show');
+        console.log('Cookie consent:', value);
     }
 
-    // Event listeners for cookie buttons
-    acceptAll.addEventListener('click', () => setConsent('all'));
-    rejectAll.addEventListener('click', () => setConsent('none'));
-    customize.addEventListener('click', () => {
+    // 5) Attach listeners (optional chaining prevents errors if a button is missing)
+    acceptAll?.addEventListener('click', () => setConsent('all'));
+    rejectAll?.addEventListener('click', () => setConsent('none'));
+    customize?.addEventListener('click', () => {
         setConsent('custom');
         alert('Here you would open the custom cookie settings panel.');
     });
-    closeBtn.addEventListener('click', () => banner.classList.remove('show'));
+    closeBtn?.addEventListener('click', () => banner.classList.remove('show'));
 });
+
+// 6) (Optional) Stub legacy function to avoid "translateBanner is not defined" errors
+window.translateBanner ??= () => {};
+
 
 // Object containing translations for different languages
 const i18n = {
