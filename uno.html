@@ -3,74 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <title>Koç</title>
-    <link  href="main.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
-    <script>
-        window.addEventListener('load', async () => {
-            await cheerpjInit();
+    <!-- CheerpJ loader (4.2) -->
+    <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
 
-        });
-        async function runUno(event) {
-            if (event) event.preventDefault();
-            const btn = document.getElementById('.button');
-            btn.disabled = true;
-            btn.querySelector('.play-icon').textContent = '⏳';
-            await cheerpjRunJar("./JAR/UNO.jar");
-        }
-    </script>
+    <!-- Styles for the game shell (16:9 stage, loader, controls) -->
     <style>
+        .game-stage{position:relative; width:100%; max-width:1100px; margin:1rem 0; background:#000; border-radius:12px; overflow:hidden; aspect-ratio:16/9;}
+        .game-loading{position:absolute; inset:0; display:grid; place-items:center; font:600 1rem system-ui; color:#fff; letter-spacing:.3px;}
+        .game-controls{position:absolute; top:.5rem; right:.5rem; display:flex; gap:.5rem; z-index:3}
+        .game-controls button{background:rgba(255,255,255,.1); backdrop-filter:saturate(140%) blur(4px); color:#fff; border:1px solid rgba(255,255,255,.2); padding:.35rem .6rem; border-radius:.6rem; cursor:pointer}
+        .game-controls button:hover{background:rgba(255,255,255,.2)}
+        .paused-overlay{position:absolute; inset:0; background:rgba(0,0,0,.45); color:#fff; display:none; align-items:center; justify-content:center; font:600 1.1rem system-ui; z-index:2}
+        .paused-overlay.show{display:flex}
+        /* legacy UNO container kept for compatibility */
         #uno-container { min-height: 600px; border: 1px dashed #ccc; margin-top: 16px; }
     </style>
+
+    <!-- Preloading scaffold (paste resources after first successful run) -->
+    <script>
+        // Paste the object returned by cjGetRuntimeResources() here after your first successful run.
+        const PRELOAD_RESOURCES = null;
+        let cjReady = false;
+        async function initCheerpJWithPreload() {
+            if (cjReady) return;
+            const loadingEl = document.querySelector('.game-loading'); // targets loader text
+            await cheerpjInit({
+                status: "default",
+                preloadResources: PRELOAD_RESOURCES || undefined,
+                preloadProgress: (done, total) => {
+                    if (!loadingEl) return;
+                    const pct = total ? Math.floor((done * 100) / total) : 0;
+                    loadingEl.textContent = `Loading… ${pct}%`;
+                }
+            });
+            cjReady = true;
+            // Helper to capture optimal preload list (first run only)
+            if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
+                cjGetRuntimeResources().then(obj => {
+                    console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
+                    console.log(JSON.stringify(obj, null, 2));
+                }).catch(()=>{});
+            }
+        }
+        // Warm up on page load
+        window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
+    </script>
+
+    <!-- UNO launcher with Minijuegos-style shell -->
+    <script>
+        async function runUno(e) {
+            if (e) e.preventDefault();
+            const btn = document.getElementById('play-uno');
+
+            // Create the container if it doesn't exist
+            let stage = document.getElementById('uno-stage');
+            if (!stage) {
+                stage = document.createElement('div');
+                stage.id = 'uno-stage';
+                stage.className = 'game-stage';
+
+                // HUD and overlays
+                const controls = document.createElement('div');
+                controls.className = 'game-controls';
+                controls.innerHTML = `
+          <button id="btn-full" type="button">Fullscreen</button>
+          <button id="btn-restart" type="button">Restart</button>
+        `;
+                const loading = document.createElement('div');
+                loading.className = 'game-loading';
+                loading.textContent = 'Loading…';
+                const paused = document.createElement('div');
+                paused.className = 'paused-overlay';
+                paused.textContent = 'Game paused';
+
+                stage.append(controls, loading, paused);
+                // Insert right after the play button
+                (btn.parentElement || document.body).insertBefore(stage, btn.nextSibling);
+
+                // Fullscreen toggle
+                controls.querySelector('#btn-full').addEventListener('click', async () => {
+                    const el = stage;
+                    if (!document.fullscreenElement) {
+                        if (el.requestFullscreen) await el.requestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) await document.exitFullscreen();
+                    }
+                });
+                // Simple restart (reload page)
+                controls.querySelector('#btn-restart').addEventListener('click', () => {
+                    location.reload();
+                });
+
+                // Visual pause when the tab becomes hidden
+                document.addEventListener('visibilitychange', () => {
+                    paused.classList.toggle('show', document.hidden);
+                });
+            }
+
+            // Button state (disable during launch)
+            const icon = btn.querySelector('.play-icon');
+            const prevIcon = icon ? icon.textContent : null;
+            btn.style.pointerEvents = 'none';
+            btn.setAttribute('aria-busy', 'true');
+            if (icon) icon.textContent = '⏳';
+
+            try {
+                await initCheerpJWithPreload();
+
+                const display = cheerpjCreateDisplay(-1, -1, stage);
+                display.style.width = '100%';
+                display.style.height = '100%';
+
+                const exit = await cheerpjRunJar('./JAR/UNO.jar');
+                console.log('UNO.jar finished with code', exit);
+            } catch (err) {
+                alert('Failed to start UNO.jar. Check the console/Network tab.');
+                console.error(err);
+            } finally {
+                // Remove loader and restore button state
+                const loading = stage.querySelector('.game-loading');
+                if (loading) loading.remove();
+                btn.style.pointerEvents = '';
+                btn.removeAttribute('aria-busy');
+                if (icon) icon.textContent = prevIcon || '▶';
+            }
+        }
+    </script>
 </head>
 
 <body>
-  <div class="header">
+<div class="header">
     <div class="branding d-flex align-items-center">
-      <div class="container position-relative d-flex align-items-left">
-        <a href="index.html" class="logo d-flex align-items-left me-3">
-          <img  src="img/cropped-logo.png" alt="Logo">
-        </a>
-        <nav id="navmenu" class="navmenu flex-grow-1 text-center ">
-          <ul class="d-inline-flex list-unstyled mb-0">
-            <il><a href="index.html#research" class="" data-i18n="research"></a></il>
-            <il><a href="index.html#games" class="" data-i18n="games"></a></il>
-            <il><a href="https://www.ku.edu.tr/" class="" data-i18n="home"></a></il>
-
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-          <div id="lang-switcher">
-              <button class="lang-btn " data-lang="es">ES</button>
-              <span class="separator">|</span>
-              <button class="lang-btn"       data-lang="en">EN</button>
-              <span class="separator">|</span>
-              <button class="lang-btn active"       data-lang="tr">TR</button>
-          </div>
-      </div>
+        <div class="container position-relative d-flex align-items-left">
+            <a href="index.html" class="logo d-flex align-items-left me-3">
+                <img src="img/cropped-logo.png" alt="Logo">
+            </a>
+            <nav id="navmenu" class="navmenu flex-grow-1 text-center">
+                <ul class="d-inline-flex list-unstyled mb-0">
+                    <li><a href="index.html#research" class="" data-i18n="research"></a></li>
+                    <li><a href="index.html#games" class="" data-i18n="games"></a></li>
+                    <li><a href="https://www.ku.edu.tr/" class="" data-i18n="home"></a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+            <div id="lang-switcher">
+                <button class="lang-btn " data-lang="es">ES</button>
+                <span class="separator">|</span>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <span class="separator">|</span>
+                <button class="lang-btn active" data-lang="tr">TR</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-
-  <main class="main">
+<main class="main">
     <section id="description" class="description">
-      <h2>UNO:</h2>
-      <button  onclick="runUno(event)" class="button">
-        <img src="img/uno.png" alt="">
-          <span  class="play-icon" data-i18n="play">▶</span>
-      </button>
+        <h2>UNO:</h2>
+        <button id="play-uno" onclick="runUno(event)" class="button">
+            <img src="img/uno.png" alt="">
+            <span class="play-icon" data-i18n="play">▶</span>
+        </button>
         <div class="description-box">
-            <h3 data-i18n="gameDescriptionUno"> </h3>
+            <h3 data-i18n="gameDescriptionUno"></h3>
         </div>
     </section>
-  </main>
-  <script src="main.js"></script>
-  <script>
-      if (localStorage.getItem('loggedIn') !== 'true') {
-          const current = window.location.pathname.split('/').pop().replace('.html','');
-          window.location.replace('login.html?target=' + current);
-      }
-  </script>
+</main>
+
+<script src="main.js"></script>
+<script>
+    // Login gate: redirect to login page if not logged in
+    if (localStorage.getItem('loggedIn') !== 'true') {
+        const current = window.location.pathname.split('/').pop().replace('.html','');
+        window.location.replace('login.html?target=' + current);
+    }
+</script>
 
 </body>
 </html>

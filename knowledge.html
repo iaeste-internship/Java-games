@@ -98,7 +98,7 @@
             if (icon) icon.textContent = '⏳';
 
             try {
-                await ensureCheerpJ();
+                await initCheerpJWithPreload();
 
                 // Create a CheerpJ display that fills the container (like an iframe embed)
                 // Note: cheerpjCreateDisplay(-1, -1, parent) makes the canvas match the parent.
@@ -119,6 +119,42 @@
                 btn.style.pointerEvents = '';
                 btn.removeAttribute('aria-busy');
                 if (icon) icon.textContent = prevIcon || '▶';
+            }
+        }
+        const PRELOAD_RESOURCES = null;
+        // Example (replace null with something like):
+        // const PRELOAD_RESOURCES = {
+        //   "/lts/cheerpj-4.2/rt.jar": [0,1,2,3,4,5],
+        //   "/lts/cheerpj-4.2/jce.jar": [0,1,2],
+        //   ...
+        // };
+
+        let cjReady = false;
+        async function initCheerpJWithPreload() {
+            if (cjReady) return;
+
+            // Optional: wire this to your loader UI
+            const loadingEl = document.querySelector('.game-loading'); // from your overlay
+
+            await cheerpjInit({
+                status: "default",                 // brief built-in status messages
+                preloadResources: PRELOAD_RESOURCES || undefined, // enable parallel preloading if available
+                preloadProgress: (done, total) => {
+                    if (!loadingEl) return;
+                    const pct = total ? Math.floor((done * 100) / total) : 0;
+                    loadingEl.textContent = `Loading… ${pct}%`;
+                }
+            });
+
+            cjReady = true;
+
+            // Developer helper (first run only): capture the optimal preload list.
+            if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
+                // Open DevTools → Console to copy this object and paste it into PRELOAD_RESOURCES above.
+                cjGetRuntimeResources().then(obj => {
+                    console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
+                    console.log(JSON.stringify(obj, null, 2));
+                }).catch(()=>{});
             }
         }
     </script>
