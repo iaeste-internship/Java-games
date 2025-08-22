@@ -14,27 +14,28 @@
         .game-controls button:hover{background:rgba(255,255,255,.2)}
         .paused-overlay{position:absolute; inset:0; background:rgba(0,0,0,.45); color:#fff; display:none; align-items:center; justify-content:center; font:600 1.1rem system-ui; z-index:2}
         .paused-overlay.show{display:flex}
-        .debug-panel{background:#111; color:#cfcfcf; border:1px solid #333; border-radius:8px; padding:10px; font:12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+        .debug-panel{background:#111; color:#cfcfcf; border:1px solid #333; border-radius:8px; padding:10px; font:12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;}
         .debug-panel .row{margin:.25rem 0}
         .debug-panel code{color:#7dd3fc}
         .debug-toggle{margin-top:8px}
     </style>
 
     <script>
-        // ---- Preload scaffold ----
-        const PRELOAD_RESOURCES = null; // paste the JSON from cjGetRuntimeResources() later
-
+        // ---- Preload scaffold (CheerpJ 4.x, Java 17) ----
+        const PRELOAD_RESOURCES = null; // Paste JSON from cjGetRuntimeResources() after first successful run
         let cjReady = false;
         async function initCheerpJWithPreload() {
             if (cjReady) return;
 
             const loadingEl = document.querySelector('.game-loading');
-            // Build options without including preloadResources unless it's a real object
-            const opts = { status: "default" };
-            opts.preloadProgress = (done, total) => {
-                if (!loadingEl) return;
-                const pct = total ? Math.floor((done * 100) / total) : 0;
-                loadingEl.textContent = `Loading… ${pct}%`;
+            const opts = {
+                version: 17,            // IMPORTANT: your UNO.jar targets Java 17
+                status: "default",
+                preloadProgress: (done, total) => {
+                    if (!loadingEl) return;
+                    const pct = total ? Math.floor((done * 100) / total) : 0;
+                    loadingEl.textContent = `Loading… ${pct}%`;
+                }
             };
             if (PRELOAD_RESOURCES && typeof PRELOAD_RESOURCES === "object") {
                 opts.preloadResources = PRELOAD_RESOURCES;
@@ -45,7 +46,7 @@
 
             if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
                 cjGetRuntimeResources().then(obj => {
-                    console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
+                    console.log('%cCopy this into PRELOAD_RESOURCES:', 'font-weight:bold');
                     console.log(JSON.stringify(obj, null, 2));
                 }).catch(()=>{});
             }
@@ -54,18 +55,18 @@
         // ---- GitHub Pages–friendly resolver ----
         async function resolveAppPath(appRelativePath) {
             // e.g. "JAR/UNO.jar"
-            const base = window.location.pathname.replace(/[^/]*$/, ''); // "/repo/" or "/"
+            const base = window.location.pathname.replace(/[^/]*$/, ''); // '/repo/' or '/'
             const realUrls = [ base + appRelativePath, '/' + appRelativePath.replace(/^\/+/, '') ];
             for (const realUrl of realUrls) {
                 try {
                     const r = await fetch(realUrl, { method: 'HEAD', cache: 'no-store' });
-                    if (r.ok) return '/app' + realUrl; // return CheerpJ path
+                    if (r.ok) return '/app' + realUrl; // return CheerpJ path for the VM
                 } catch {}
             }
-            throw new Error("UNO.jar not found at: " + realUrls.join(" , "));
+            throw new Error('UNO.jar not found at: ' + realUrls.join(' , '));
         }
 
-        // ---- UNO launcher ----
+        // ---- UNO launcher (single flow; no cheerpjAddClasspath in CJ4) ----
         async function runUno(e) {
             if (e) e.preventDefault();
             const btn = document.getElementById('play-uno');
@@ -80,9 +81,9 @@
                 const controls = document.createElement('div');
                 controls.className = 'game-controls';
                 controls.innerHTML = `
-        <button id="btn-full" type="button">Fullscreen</button>
-        <button id="btn-restart" type="button">Restart</button>
-      `;
+          <button id="btn-full" type="button">Fullscreen</button>
+          <button id="btn-restart" type="button">Restart</button>
+        `;
                 const loading = document.createElement('div');
                 loading.className = 'game-loading';
                 loading.textContent = 'Loading…';
@@ -101,28 +102,6 @@
                 document.addEventListener('visibilitychange', () => {
                     paused.classList.toggle('show', document.hidden);
                 });
-                try {
-                    await initCheerpJWithPreload();
-
-                    // Resolve GitHub Pages path -> returns something like "/app/<repo>/JAR/UNO.jar"
-                    const jarAppPath = await resolveAppPath('JAR/UNO.jar');
-                    console.log('Using JAR path:', jarAppPath);
-
-                    // Create display first
-                    const display = cheerpjCreateDisplay(-1, -1, stage);
-                    display.style.width = '100%';
-                    display.style.height = '100%';
-
-                    // ✅ CJ3/4 way: run the main class and pass the JAR path as classPath
-                    //    (dependencies would be colon-separated here if you had more)
-                    const exit = await cheerpjRunMain('Launcher.MainLauncher', jarAppPath, []);
-                    console.log('UNO main exited with code', exit);
-
-                    stage.querySelector('.game-loading')?.remove();
-                } catch (err) {
-                    console.error('UNO launch error:', err);
-                    alert('Failed to start UNO.jar. Check Console for details.');
-                }
             }
 
             // Button state
@@ -135,24 +114,22 @@
             try {
                 await initCheerpJWithPreload();
 
-                // 1) Resolve path for GitHub Pages
-                const jarAppPath = await resolveAppPath('JAR/UNO.jar'); // -> e.g. "/app/<repo>/JAR/UNO.jar"
+                // Resolve GitHub Pages path (returns e.g. '/app/<repo>/JAR/UNO.jar')
+                const jarAppPath = await resolveAppPath('JAR/UNO.jar');
                 console.log('Using JAR path:', jarAppPath);
 
-                // 2) Create CheerpJ display first
+                // Create display and run main class (CJ4 signature: runMain(class, classPath, args))
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                // 3) Run via classpath + main class (more robust than runJar on some setups)
-                await cheerpjAddClasspath(jarAppPath);
-                const exit = await cheerpjRunMain('Launcher.MainLauncher', []); // <- your JAR’s Main-Class
+                const exit = await cheerpjRunMain('Launcher.MainLauncher', jarAppPath, []);
                 console.log('UNO main exited with code', exit);
 
                 stage.querySelector('.game-loading')?.remove();
             } catch (err) {
                 console.error('UNO launch error:', err);
-                alert('Failed to start UNO.jar. Check Console → details.');
+                alert('Failed to start UNO.jar. See Console for details.');
             } finally {
                 btn.style.pointerEvents = '';
                 btn.removeAttribute('aria-busy');
@@ -160,7 +137,7 @@
             }
         }
 
-        // Warm up on load
+        // Warm up on load to reduce time-to-first-frame
         window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
     </script>
 </head>
