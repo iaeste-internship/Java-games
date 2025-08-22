@@ -17,11 +17,12 @@
         .game-controls button:hover{background:rgba(255,255,255,.2)}
         .paused-overlay{position:absolute; inset:0; background:rgba(0,0,0,.45); color:#fff; display:none; align-items:center; justify-content:center; font:600 1.1rem system-ui; z-index:2}
         .paused-overlay.show{display:flex}
-        /* Kept in case UNO page shares styles */
+        /* (Optional) UNO container if reused on other pages */
         #uno-container { min-height: 600px; border: 1px dashed #ccc; margin-top: 16px; }
     </style>
 
     <script>
+        // Ensure CheerpJ is initialized once per page
         let cjReady = false;
         async function ensureCheerpJ() {
             if (cjReady) return;
@@ -39,11 +40,12 @@
             try { await ensureCheerpJ(); } catch {}
         });
 
+        // Launch Knowledge.jar inside a 16:9 container, with fullscreen/restart controls
         async function runKnowledge(e) {
             if (e) e.preventDefault();
             const btn = document.getElementById('play-knowledge');
 
-            // Create the container if it doesn't exist
+            // Create the container if it doesn't exist yet
             let stage = document.getElementById('game-stage');
             if (!stage) {
                 stage = document.createElement('div');
@@ -65,10 +67,10 @@
                 paused.textContent = 'Game paused';
 
                 stage.append(controls, loading, paused);
-                // Insert right after the button
+                // Insert right after the play button
                 (btn.parentElement || document.body).insertBefore(stage, btn.nextSibling);
 
-                // Controls
+                // Fullscreen toggle
                 controls.querySelector('#btn-full').addEventListener('click', async () => {
                     const el = stage;
                     if (!document.fullscreenElement) {
@@ -77,18 +79,18 @@
                         if (document.exitFullscreen) await document.exitFullscreen();
                     }
                 });
+                // Simple restart (reload page)
                 controls.querySelector('#btn-restart').addEventListener('click', () => {
-                    // Simple & robust restart
                     location.reload();
                 });
 
-                // Visual pause when the tab becomes hidden
+                // Show a visual pause when the tab loses focus
                 document.addEventListener('visibilitychange', () => {
                     paused.classList.toggle('show', document.hidden);
                 });
             }
 
-            // Button state
+            // Button state (disable during launch)
             const icon = btn.querySelector('.play-icon');
             const prevIcon = icon ? icon.textContent : null;
             btn.style.pointerEvents = 'none';
@@ -98,23 +100,25 @@
             try {
                 await ensureCheerpJ();
 
-                // Create a CheerpJ display that fills the container (similar to Minijuegos' iframe)
+                // Create a CheerpJ display that fills the container (like an iframe embed)
                 // Note: cheerpjCreateDisplay(-1, -1, parent) makes the canvas match the parent.
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                const exit = await cheerpjRunJar('/JAR/Knowledge.jar');
+                // IMPORTANT: Use the exact path you specified
+                const exit = await cheerpjRunJar('./JAR/Knowledge.jar');
                 console.log('Knowledge.jar finished with code', exit);
             } catch (err) {
-                alert('Failed to start Knowledge.jar. Check the console for details.');
+                alert('Failed to start Knowledge.jar. Check the console/Network tab.');
                 console.error(err);
             } finally {
+                // Remove loader and restore button state
                 const loading = stage.querySelector('.game-loading');
                 if (loading) loading.remove();
                 btn.style.pointerEvents = '';
                 btn.removeAttribute('aria-busy');
-                if (icon) icon.textContent = prevIcon || '';
+                if (icon) icon.textContent = prevIcon || '▶';
             }
         }
     </script>
@@ -162,7 +166,7 @@
 
 <script src="main.js"></script>
 <script>
-    // Login gate
+    // Login gate: redirect to login page if not logged in
     if (localStorage.getItem('loggedIn') !== 'true') {
         const current = window.location.pathname.split('/').pop().replace('.html','');
         window.location.replace('login.html?target=' + current);
