@@ -5,14 +5,7 @@
     <title>Koç</title>
     <link href="main.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Preconnect to CheerpJ CDN -->
-    <link rel="preconnect" href="https://cjrtnc.leaningtech.com" crossorigin>
-    <link rel="dns-prefetch" href="//cjrtnc.leaningtech.com">
-
-    <!-- CheerpJ loader (4.2) -->
     <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
-
     <style>
         .game-stage{position:relative; width:100%; max-width:1100px; margin:1rem 0; background:#000; border-radius:12px; overflow:hidden; aspect-ratio:16/9;}
         .game-loading{position:absolute; inset:0; display:grid; place-items:center; font:600 1rem system-ui; color:#fff; letter-spacing:.3px;}
@@ -24,23 +17,18 @@
     </style>
 
     <script>
-        // ========= Faster, race‑proof CheerpJ init (CJ4, Java 17) =========
-        const CJ_RUNTIME = "4.2";
-        const CJ_VERSION = 17;
-        const CJ_PRELOAD_KEY = `cj-preload-resources-v${CJ_RUNTIME}-j${CJ_VERSION}`;
-        let PRELOAD_RESOURCES = null;
-        try { PRELOAD_RESOURCES = JSON.parse(localStorage.getItem(CJ_PRELOAD_KEY) || 'null'); } catch { PRELOAD_RESOURCES = null; }
-
+        // ===== CheerpJ preload with race-proof init (CJ 4.x, Java 17) =====
+        const PRELOAD_RESOURCES = null; // paste JSON from cjGetRuntimeResources() later
         let cjReady = false;
-        let cjInitPromise = null;
+        let cjInitPromise = null; // guards concurrent init calls
 
         async function initCheerpJWithPreload() {
             if (cjReady) return true;
-            if (cjInitPromise) return cjInitPromise;
+            if (cjInitPromise) return cjInitPromise; // wait for in-flight init
 
             const loadingEl = document.querySelector('.game-loading');
             const opts = {
-                version: CJ_VERSION,
+                version: 17, // your JAR targets Java 17
                 status: "default",
                 preloadProgress: (done, total) => {
                     if (!loadingEl) return;
@@ -55,69 +43,48 @@
             cjInitPromise = (async () => {
                 await cheerpjInit(opts);
                 cjReady = true;
+                // Helper on first run: print optimal preload list
                 if (!PRELOAD_RESOURCES && typeof cjGetRuntimeResources === "function") {
                     try {
                         const obj = await cjGetRuntimeResources();
-                        localStorage.setItem(CJ_PRELOAD_KEY, JSON.stringify(obj));
-                        console.log("%cSaved PRELOAD_RESOURCES to localStorage", "color:#22c55e");
+                        console.log("%cCopy this into PRELOAD_RESOURCES:", "font-weight:bold");
+                        console.log(JSON.stringify(obj, null, 2));
                     } catch {}
                 }
                 return true;
             })();
 
-            try { return await cjInitPromise; }
-            finally { if (!cjReady) cjInitPromise = null; }
-        }
-
-        // ========= Robust JAR resolver (tries many common spellings/paths) =========
-        const KNOWLEDGE_CANDIDATES = [
-            'JAR/Knowledge.jar',
-            'JAR/knowlegde.jar',   // common misspelling
-            'JAR/knowledge.jar',
-            'JAR/KNOWLEDGE.jar',
-            'Knowledge.jar',
-            'knowlegde.jar',
-            'knowledge.jar',
-            '.JAR/Knowledge.jar',  // if folder name accidentally starts with dot
-            '.JAR/knowlegde.jar',
-            'Jar/Knowledge.jar',
-            'jar/Knowledge.jar'
-        ];
-
-        let resolvedJarAppPath = null;
-        async function resolveKnowledgeJar() {
-            if (resolvedJarAppPath) return resolvedJarAppPath;
-            const base = window.location.pathname.replace(/[^/]*$/, ''); // '/repo/' or '/'
-            const tested = [];
-            for (const rel of KNOWLEDGE_CANDIDATES) {
-                const realUrls = [ base + rel, '/' + rel.replace(/^\/+/, '') ];
-                for (const realUrl of realUrls) {
-                    tested.push(realUrl);
-                    try {
-                        const r = await fetch(realUrl, { method: 'HEAD', cache: 'no-store' });
-                        if (r.ok) {
-                            // warm cache with 1-byte range request (non-blocking)
-                            fetch(realUrl, { method:'GET', headers:{'Range':'bytes=0-0'}, cache:'no-store' }).catch(()=>{});
-                            resolvedJarAppPath = '/app' + realUrl;
-                            console.log('Resolved Knowledge JAR:', realUrl);
-                            return resolvedJarAppPath;
-                        }
-                    } catch {}
-                }
+            try {
+                return await cjInitPromise;
+            } finally {
+                // keep the resolved promise for future callers; if it rejected, allow retries
+                if (!cjReady) cjInitPromise = null;
             }
-            throw new Error('Knowledge.jar not found. Tested: ' + tested.join(' , '));
         }
 
-        // ========= Knowledge launcher =========
+        // GitHub Pages–friendly resolver → returns CheerpJ path (with /app prefix)
+        async function resolveAppPath(appRelativePath) {
+            const base = window.location.pathname.replace(/[^/]*$/, ''); // '/repo/' or '/'
+            const realUrls = [ base + appRelativePath, '/' + appRelativePath.replace(/^\/+/, '') ];
+            for (const realUrl of realUrls) {
+                try {
+                    const r = await fetch(realUrl, { method: 'HEAD', cache: 'no-store' });
+                    if (r.ok) return '/app' + realUrl;
+                } catch {}
+            }
+            throw new Error('Knowledge.jar not found at: ' + realUrls.join(' , '));
+        }
+
+        // ===== UNO launcher =====
         async function runKnowledge(e) {
             if (e) e.preventDefault();
             const btn = document.getElementById('play-knowledge');
 
             // Create stage on first run
-            let stage = document.getElementById('knowledge-stage');
+            let stage = document.getElementById('game-stage');
             if (!stage) {
                 stage = document.createElement('div');
-                stage.id = 'knowledge-stage';
+                stage.id = 'uno-stage';
                 stage.className = 'game-stage';
 
                 const controls = document.createElement('div');
@@ -146,6 +113,7 @@
                 });
             }
 
+            // Button state
             const icon = btn.querySelector('.play-icon');
             const prev = icon ? icon.textContent : null;
             btn.style.pointerEvents = 'none';
@@ -153,15 +121,18 @@
             if (icon) icon.textContent = '⏳';
 
             try {
-                await initCheerpJWithPreload();
-                const jarPath = await resolveKnowledgeJar();
+                await initCheerpJWithPreload(); // race-proofed
+
+                const jarAppPath = await resolveAppPath('JAR/Knowledge.jar');
+                console.log('Using JAR path:', jarAppPath);
 
                 const display = cheerpjCreateDisplay(-1, -1, stage);
                 display.style.width = '100%';
                 display.style.height = '100%';
 
-                const exit = await cheerpjRunJar(jarPath); // uses manifest Main-Class
-                console.log('Knowledge.jar exited with code', exit);
+                const exit = await cheerpjRunMain('Launcher.MainLauncher', jarAppPath, []);
+                console.log('Knowledge main exited with code', exit);
+
                 stage.querySelector('.game-loading')?.remove();
             } catch (err) {
                 console.error('Knowledge launch error:', err);
@@ -173,11 +144,8 @@
             }
         }
 
-        // Start init ASAP, also try to resolve the JAR early
-        document.addEventListener('DOMContentLoaded', () => {
-            initCheerpJWithPreload().catch(()=>{});
-            resolveKnowledgeJar().catch(()=>{});
-        });
+        // Warm up on load; safe even if user clicks during init
+        window.addEventListener('load', async () => { try { await initCheerpJWithPreload(); } catch {} });
     </script>
 </head>
 <body>
@@ -207,21 +175,21 @@
 </div>
 
 <main class="main">
-    <section class="description" id="description">
-        <h2>Knowledge:</h2>
+    <section id="description" class="description">
+        <h2>UNO:</h2>
         <button id="play-knowledge" onclick="runKnowledge(event)" class="button">
             <img src="img/knowledge.png" alt="">
             <span class="play-icon" data-i18n="play">▶</span>
         </button>
         <div class="description-box">
-            <h3 data-i18n="gameDescriptionKnowledge"></h3>
+            <h3 data-i18n="gameDescriptionUno"></h3>
         </div>
     </section>
 </main>
 
 <script src="main.js"></script>
 <script>
-    // Login gate
+    // Login gate: redirect if not logged in
     if (localStorage.getItem('loggedIn') !== 'true') {
         const current = window.location.pathname.split('/').pop().replace('.html','');
         window.location.replace('login.html?target=' + current);
