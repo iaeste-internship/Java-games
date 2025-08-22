@@ -101,6 +101,28 @@
                 document.addEventListener('visibilitychange', () => {
                     paused.classList.toggle('show', document.hidden);
                 });
+                try {
+                    await initCheerpJWithPreload();
+
+                    // Resolve GitHub Pages path -> returns something like "/app/<repo>/JAR/UNO.jar"
+                    const jarAppPath = await resolveAppPath('JAR/UNO.jar');
+                    console.log('Using JAR path:', jarAppPath);
+
+                    // Create display first
+                    const display = cheerpjCreateDisplay(-1, -1, stage);
+                    display.style.width = '100%';
+                    display.style.height = '100%';
+
+                    // ✅ CJ3/4 way: run the main class and pass the JAR path as classPath
+                    //    (dependencies would be colon-separated here if you had more)
+                    const exit = await cheerpjRunMain('Launcher.MainLauncher', jarAppPath, []);
+                    console.log('UNO main exited with code', exit);
+
+                    stage.querySelector('.game-loading')?.remove();
+                } catch (err) {
+                    console.error('UNO launch error:', err);
+                    alert('Failed to start UNO.jar. Check Console for details.');
+                }
             }
 
             // Button state
