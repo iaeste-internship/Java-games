@@ -44,7 +44,7 @@
 }
 .header .branding {
     /* Rule: min-height: 60px; padding: 10px 0; } .header .logo */
-
+    background-color: white;
     min-height: 60px;
     padding: 10px 0;
 }
