@@ -216,9 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Remove cookie consent (for testing purposes, so banner appears every time)
-localStorage.removeItem('cookie_consent');
-
 // Language switcher logic with simple banner translation (legacy)
 document.querySelectorAll('#lang-switcher .lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -229,11 +226,59 @@ document.querySelectorAll('#lang-switcher .lang-btn').forEach(btn => {
     });
 });
 
-// Initial language setup on page load (legacy)
-document.addEventListener('DOMContentLoaded', () => {
-    const defaultLang = 'tr';
-    translateBanner(defaultLang);
-    document.querySelectorAll('#lang-switcher .lang-btn').forEach(btn =>
-        btn.classList.toggle('active', btn.dataset.lang === defaultLang)
-    );
-});
+// =======================================
+// i18n persistence (localStorage + cookie)
+// - Saves & restores selected language
+// - Updates <html lang=""> and active button state
+// =======================================
+(function(){
+    const LANG_KEY = "site:lang";
+
+    // --- Cookie helpers (same-site, 1 year) ---
+    function setLangCookie(value) {
+        try {
+            const days = 365;
+            const expires = new Date(Date.now() + days*24*60*60*1000).toUTCString();
+            document.cookie = "site_lang=" + encodeURIComponent(value) + ";expires=" + expires + ";path=/;SameSite=Lax";
+        } catch {}
+    }
+    function getLangCookie() {
+        try {
+            const m = document.cookie.match(/(?:^|;\s*)site_lang=([^;]+)/);
+            return m ? decodeURIComponent(m[1]) : null;
+        } catch { return null; }
+    }
+
+    // --- Apply internationalization to the page ---
+    // (Relies on existing applyI18n(lang) and i18n object)
+    function setLanguage(lang) {
+        // Persist
+        try { localStorage.setItem(LANG_KEY, lang); } catch {}
+        setLangCookie(lang);
+
+        // Apply
+        applyI18n(lang);
+        document.documentElement.setAttribute("lang", lang);
+
+        // Reflect active button in the switcher if present
+        const btns = document.querySelectorAll("#lang-switcher .lang-btn");
+        btns.forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+    }
+
+    // --- Resolve initial language on every page load ---
+    document.addEventListener("DOMContentLoaded", () => {
+        const stored = (() => { try { return localStorage.getItem(LANG_KEY); } catch { return null; } })();
+        const fromCookie = getLangCookie();
+        const navLang = (navigator.language || "tr").slice(0, 2);
+        const initial = (stored && i18n[stored]) ? stored
+            : (fromCookie && i18n[fromCookie]) ? fromCookie
+                : (i18n[navLang] ? navLang : "tr");
+
+        setLanguage(initial);
+
+        // Wire up the language buttons
+        document.querySelectorAll("#lang-switcher .lang-btn").forEach(btn => {
+            btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+        });
+    });
+})();
