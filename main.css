@@ -126,7 +126,7 @@ h4 {
     font-family: var(--nav-font);
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--heading-color);
+    color: var(--default-color);
     padding-bottom: 4px;
     transition: color 0.3s ease;
     position: static;
@@ -483,4 +483,116 @@ section.games {
     margin: 0 4px;
     user-select: none;
 }
+/* ===== KU-style header overrides ===== */
+.header {
+    background: #fff;
+    box-shadow: 0 1px 12px rgba(0,0,0,.06);
+}
+
+.navmenu ul {
+    display: flex;
+    gap: 0;           /* spacing comes from item padding + separators */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navmenu ul > li,
+.navmenu ul > il {   /* supports your current <il> tags too */
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+}
+
+.navmenu ul > li + li,
+.navmenu ul > il + il,
+.navmenu ul > li + il,
+.navmenu ul > il + li {
+    border-left: 1px solid #e8e8e8;  /* thin vertical separator */
+}
+
+.navmenu a {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    font-family: var(--nav-font, inherit);
+    font-weight: 600;
+    text-decoration: none;
+    color: #2f2f2f;              /* dark gray like KU */
+    line-height: 60px;           /* aligns with header height */
+}
+
+.navmenu a:hover,
+.navmenu a:focus {
+    color: #111;
+}
+
+/* Small caret like in KU header */
+.navmenu a::after {
+    content: "";
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #7a7a7a;
+    transform: translateY(1px);
+}
+
+/* If some item shouldn't have caret, add .no-caret on that <a> */
+.navmenu a.no-caret::after { display:none; }
+
+/* Language switcher keeps the pill look, but neutral colors */
+#lang-switcher {
+    background: #fff;
+    border: 1px solid #efefef;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+#lang-switcher .lang-btn { color: #2f2f2f; }
+#lang-switcher .lang-btn.active { color: #6b2d84; } /* keep your purple accent */
+
+/* =======================
+   Responsive adjustments
+   ======================= */
+
+img, video, canvas, svg { max-width: 100%; height: auto; }
+section { padding: 64px 0; }
+@media (max-width: 991.98px){ section { padding: 48px 0; } }
+@media (max-width: 575.98px){ section { padding: 36px 0; } }
+
+@media (max-width: 1199.98px){
+    .header .logo img{ height:48px; width:auto; }
+    .navmenu a{ line-height:52px; }
+    .navmenu ul > li, .navmenu ul > il{ padding:0 16px; }
+}
+@media (max-width: 991.98px){
+    .header .branding{ padding:8px 0; }
+    .header .logo img{ height:44px; }
+    .navmenu a{ font-size:.95rem; line-height:48px; }
+    .navmenu a::after{ border-top-width:5px; }
+    #lang-switcher{ padding:6px 10px; }
+    #lang-switcher .lang-btn{ padding:6px 8px; font-size:.9rem; }
+}
+@media (max-width: 767.98px){
+    .header .branding .container,
+    .header .container{
+        display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .header .logo{ order:1; }
+    #lang-switcher{ order:2; margin-left:auto; }
+    .navmenu{ order:3; width:100%; }
+    .navmenu ul{
+        gap:0; overflow-x:auto; white-space:nowrap;
+        -webkit-overflow-scrolling:touch;
+        border-top:1px solid #eee; border-bottom:1px solid #eee;
+    }
+    .navmenu ul > li, .navmenu ul > il{ padding:0 16px; }
+    .navmenu a{ font-size:.95rem; line-height:44px; }
+    .navmenu a::after{ display:none; }
+}
+@media (max-width: 420px){
+    .header .logo img{ height:36px; }
+    #lang-switcher{ padding:4px 8px; }
+    #lang-switcher .lang-btn{ font-size:.85rem; padding:4px 6px; }
+}
+
+
  
