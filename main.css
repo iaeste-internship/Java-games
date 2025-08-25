@@ -37,14 +37,13 @@
     /* Rule: color: black; background-color: var(--contrast-color ); transition: all 0.5s; z-index: 997; box-shadow: 0px... */
 
     color: black;
-    background-color: var(--contrast-color );
+    background-color: var(--background-color );
     transition: all 0.5s;
     z-index: 997;
     box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
 }
 .header .branding {
     /* Rule: min-height: 60px; padding: 10px 0; } .header .logo */
-    background-color: white;
     min-height: 60px;
     padding: 10px 0;
 }
